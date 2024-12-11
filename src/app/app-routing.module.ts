@@ -6,6 +6,7 @@ import { LayoutsComponent } from './layout/layouts/layouts.component';
 import { TemplatesComponent } from './layout/templates/templates.component';
 
 const routes: Routes = [
+  { path: '', component: LayoutsComponent },  
   { path: 'layouts', component: LayoutsComponent },  
   { path: 'templates', component: TemplatesComponent },
   { path: 'sms-email-notification-history', component: SmsEmailNotificationHistoryComponent },
