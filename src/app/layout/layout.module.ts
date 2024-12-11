@@ -4,6 +4,10 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarTogglerComponent } from './components/sidebar-toggler/sidebar-toggler.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { SmsEmailNotificationHistoryComponent } from './sms-email-notification-history/sms-email-notification-history.component';
+import { LayoutsComponent } from './layouts/layouts.component';
+import { TemplatesComponent } from './templates/templates.component'; 
 
 
 
@@ -12,10 +16,14 @@ import { NavbarComponent } from './navbar/navbar.component';
     LayoutComponent,
     SidebarComponent,
     SidebarTogglerComponent,
-    NavbarComponent
+    NavbarComponent,
+    SmsEmailNotificationHistoryComponent,
+    LayoutsComponent,
+    TemplatesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     LayoutComponent 

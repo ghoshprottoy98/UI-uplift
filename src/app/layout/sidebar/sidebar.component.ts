@@ -9,8 +9,13 @@ import { Observable } from 'rxjs';
 })
 export class SidebarComponent {
   isCollapsed$ = new Observable<boolean>();
-  menuItems = ['Layouts', 'Templates', 'SMS/Email Notification History', 'Web Notifications'];
-
+  menuItems = [
+    { label: 'Layouts', route: '/layouts' },
+    { label: 'Templates', route: '/templates' },
+    { label: 'SMS/Email Notification History', route: '/sms-email-notification-history' },
+    { label: 'Web Notifications', route: '/web-notifications' }
+  ];
+  
   constructor(private layoutService: LayoutService) {}
 
   ngOnInit(): void {
