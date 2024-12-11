@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarTogglerComponent } from './components/sidebar-toggler/sidebar-toggler.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -10,7 +11,8 @@ import { SidebarTogglerComponent } from './components/sidebar-toggler/sidebar-to
   declarations: [
     LayoutComponent,
     SidebarComponent,
-    SidebarTogglerComponent
+    SidebarTogglerComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule
