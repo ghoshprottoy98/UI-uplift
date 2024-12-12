@@ -1,32 +1,11 @@
 <div class="min-h-20 bg-gray-800 text-white flex flex-col px-5 border-b">
-  <div class="breadcrumbs text-sm px-2">
-    <ul class="flex space-x-1">
-      <li *ngFor="let crumb of breadcrumbs; let last = last" class="text-white">
-        <ng-container *ngIf="!last; else lastCrumb">
-          <a [routerLink]="crumb.link" class="text-white hover:text-gray-300">{{ crumb.label }}</a>
-        </ng-container>
-        <ng-template #lastCrumb>{{ crumb.label }}</ng-template>
-      </li>
-    </ul>
-  </div>
+
+<app-toolbar></app-toolbar>
+<hr>
 
   <div class="flex items-center justify-between">
-    <div class="flex items-center">
       <app-sidebar-toggler *ngIf="isCollapsed$ | async"></app-sidebar-toggler>
-    </div>
+    <h2 class="text-lg font-bold flex-start flex-grow mt-5 mb-5">Notification Service Admin Console</h2>
+</div>
 
-    <h2 class="text-lg font-bold flex-start flex-grow">Notification Service Admin Console</h2>
-
-    <div class="flex items-center">
-      <details class="dropdown pb-2">
-        <summary class="btn m-1 text-white bg-gray-500 hover:text-gray-500" role="button">bipul</summary>
-        <ul class="menu dropdown-content bg-gray-700 rounded-box w-52 p-2 shadow absolute left-[-100%]">
-          <li><a class="text-white hover:bg-gray-600">John Smith</a></li>
-          <li><a class="text-white hover:bg-gray-600">johnsmithemail</a></li>
-          <hr>
-          <li><a class="text-white hover:bg-gray-600">Log out</a></li>
-        </ul>
-      </details>
-    </div>
-  </div>
 </div>

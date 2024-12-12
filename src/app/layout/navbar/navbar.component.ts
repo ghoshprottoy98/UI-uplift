@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../layout.service';
 
@@ -9,62 +7,14 @@ import { LayoutService } from '../layout.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
-  breadcrumbs: Array<{ label: string, link: string }> = [];
+export class NavbarComponent {
   isCollapsed$ = new Observable<boolean>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private layoutService: LayoutService
-  ) {}
+  constructor(private layoutService: LayoutService ) {}
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
 
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.breadcrumbs = this.createBreadcrumbs(this.route.root);
-    });
-  }
 
-  private createBreadcrumbs(
-    route: ActivatedRoute,
-    url: string = '',
-    breadcrumbs: Array<{ label: string, link: string }> = []
-  ): Array<{ label: string, link: string }> {
-    const children: ActivatedRoute[] = route.children;
-
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
-
-    for (let child of children) {
-      const routeURL: string = child.snapshot.url.map((segment) => segment.path).join('/');
-      if (routeURL) {
-        const label = this.getLabel(routeURL);
-        const link = url + '/' + routeURL;
-        breadcrumbs.push({ label, link });
-        return this.createBreadcrumbs(child, link, breadcrumbs);
-      }
-    }
-
-    return breadcrumbs;
-  }
-
-  private getLabel(route: string): string {
-    switch (route) {
-      case 'home':
-        return 'Home';
-      case 'web-notifications':
-        return 'Web Notifications';
-      case 'sms-email-notification-history':
-        return 'Sms/Email Notification History';
-      default:
-        return this.capitalize(route);
-    }
-  }
-
-  private capitalize(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1).replace('-', ' ');
   }
 }
