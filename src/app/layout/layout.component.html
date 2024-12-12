@@ -1,4 +1,10 @@
-<div class="flex h-screen"> 
+Layouts
+Templates
+SMS/Email Notification History
+Web Notifications
+Home
+Layouts
+Notification Service Admin Console<div class="flex h-screen"> 
   
   <div
 [ngClass]="{
@@ -12,14 +18,18 @@
 
 
  <div class="flex flex-col flex-grow bg-gray-50">
-  
  <app-navbar></app-navbar>
  
- <div class="p-6"> 
+ <div class="p-6  h-[calc(100vh-150px)] overflow-y-auto"> 
   <router-outlet></router-outlet>
  </div>
 
+ <div class="bg-200 flex justify-end">
+ <app-footer></app-footer>
+ </div>
+
   </div>
+
 
 
 

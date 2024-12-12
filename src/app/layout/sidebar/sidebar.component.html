@@ -10,10 +10,10 @@
       <li *ngFor="let item of menuItems" class="mb-4">
         <a
           [routerLink]="item.route"
-          class="flex items-center text-sm p-1 whitespace-nowrap rounded h-10"
+          class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-gray-200 text-black': selectedLabel === item.label,
-            'text-white hover:bg-gray-200 hover:cursor-pointer hover:text-black': selectedLabel !== item.label
+            'bg-gray-200 text-black font-bold': selectedLabel === item.label,
+            'text-white hover:bg-gray-200 hover:cursor-pointer hover:text-black hover:font-bold': selectedLabel !== item.label
           }"
           (click)="selectItem(item.label)"
         >

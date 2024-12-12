@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WebNotificationsComponent } from './web-notifications/web-notifications.component';
+import { WebNotificationsComponent } from './layout/web-notifications/web-notifications.component';
 import { SmsEmailNotificationHistoryComponent } from './layout/sms-email-notification-history/sms-email-notification-history.component';
 import { LayoutsComponent } from './layout/layouts/layouts.component';
 import { TemplatesComponent } from './layout/templates/templates.component';

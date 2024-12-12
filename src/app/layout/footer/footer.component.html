@@ -1,0 +1,28 @@
+<ng-container *ngIf="appFooterContainerCSSClass">
+    <!--begin::Footer container-->
+    <div class="app-container" [ngClass]="appFooterContainerCSSClass">
+      <ng-container *ngTemplateOutlet="footerView"></ng-container>
+    </div>
+    <!--end::Footer container-->
+  </ng-container>
+  
+  <ng-container *ngIf="!appFooterContainerCSSClass">
+    <ng-container *ngTemplateOutlet="footerView"></ng-container>
+  </ng-container>
+  
+  <ng-template #footerView>
+    <div class="flex justify-end w-full">
+      <!-- Right Content -->
+      <div class="flex items-center">
+        <span class="text-sm font-weight-bold ms-2 text-muted text-center">Developed By:&nbsp;</span>
+        <a href="http://www.bracits.com" target="_blank" class="text-dark-50 ms-2">
+          <img
+            class="theme-light-show vendor-logo"
+            src="src/assets/media/logos/bracit-logo.svg"
+            alt="BRAC IT Services"
+          />
+        </a>
+      </div>
+    </div>
+  </ng-template>
+  

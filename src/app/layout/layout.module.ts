@@ -7,7 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SmsEmailNotificationHistoryComponent } from './sms-email-notification-history/sms-email-notification-history.component';
 import { LayoutsComponent } from './layouts/layouts.component';
-import { TemplatesComponent } from './templates/templates.component'; 
+import { TemplatesComponent } from './templates/templates.component';
+import { FooterComponent } from './footer/footer.component'; 
 
 
 
@@ -19,7 +20,8 @@ import { TemplatesComponent } from './templates/templates.component';
     NavbarComponent,
     SmsEmailNotificationHistoryComponent,
     LayoutsComponent,
-    TemplatesComponent
+    TemplatesComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
