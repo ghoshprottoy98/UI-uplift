@@ -10,6 +10,7 @@ import { LayoutsComponent } from './layouts/layouts.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -23,7 +24,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     LayoutsComponent,
     TemplatesComponent,
     FooterComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

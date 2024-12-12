@@ -35,6 +35,12 @@ export class SidebarComponent implements OnInit {
 
   private setSelectedLabelFromRoute(): void {
     const currentUrl = this.router.url; 
+    
+    if (currentUrl === '/home') {
+      this.selectedLabel = null; 
+      return;
+    }
+
     const selectedItem = this.menuItems.find(item => currentUrl.startsWith(item.route));  
     if (selectedItem) {
       this.selectedLabel = selectedItem.label; 

@@ -57,8 +57,7 @@ export class ToolbarComponent implements OnInit {
 
   private getLabel(route: string): string {
     switch (route) {
-      case 'home':
-        return 'Home';
+
       case 'web-notifications':
         return 'Web Notifications';
       case 'sms-email-notification-history':

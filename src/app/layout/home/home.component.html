@@ -1,0 +1,7 @@
+<div class="flex items-center justify-center h-full bg-gray-100">
+    <div class="text-center" *ngIf="isParentRoute">
+      <h1 class="text-4xl font-bold text-[#0c2c54] mb-4">Welcome to Notification Service Admin Console !</h1>
+      <p class="text-gray-600">Click one of the links from the menu to explore more!</p>
+    </div>
+        <router-outlet *ngIf="!isParentRoute"></router-outlet>
+  </div>

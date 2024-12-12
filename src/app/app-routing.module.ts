@@ -4,11 +4,12 @@ import { WebNotificationsComponent } from './layout/web-notifications/web-notifi
 import { SmsEmailNotificationHistoryComponent } from './layout/sms-email-notification-history/sms-email-notification-history.component';
 import { LayoutsComponent } from './layout/layouts/layouts.component';
 import { TemplatesComponent } from './layout/templates/templates.component';
+import { HomeComponent } from './layout/home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },  
   {
-    path: 'home',
+    path: 'home', component: HomeComponent,
     children: [
       { path: 'layouts', component: LayoutsComponent },
       { path: 'templates', component: TemplatesComponent },
