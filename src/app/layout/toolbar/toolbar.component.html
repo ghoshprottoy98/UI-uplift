@@ -1,9 +1,9 @@
 <div class= "flex items-center justify-between">
  <div class="breadcrumbs text-sm px-1">
     <ul class="flex space-x-1">
-      <li *ngFor="let crumb of breadcrumbs; let last = last" class="text-white">
+      <li *ngFor="let crumb of breadcrumbs; let last = last" class="text-[#0c2c54]">
         <ng-container *ngIf="!last; else lastCrumb">
-          <a [routerLink]="crumb.link" class="text-white hover:text-gray-300">{{ crumb.label }}</a>
+          <a [routerLink]="crumb.link" class="text-[#0c2c54] hover:text-gray-800">{{ crumb.label }}</a>
         </ng-container>
         <ng-template #lastCrumb>{{ crumb.label }}</ng-template>
       </li>
@@ -13,15 +13,15 @@
       <div class="flex items-center relative">
       <details class="dropdown">
         <summary class="avatar placeholder p-3">
-          <div class="bg-neutral text-neutral-content h-8 w-8 rounded">
-            <span class="text-md">BB</span>
+          <div class="bg-neutral text-neutral-content h-10 w-10 rounded">
+            <span class="text-lg">JS</span>
           </div>
         </summary>     
-         <ul class="menu dropdown-content bg-gray-700 rounded-box w-52 p-2 shadow absolute right-[10%]">
-          <li><a class="text-white hover:bg-gray-600">John Smith</a></li>
-          <li><a class="text-white hover:bg-gray-600">johnsmithemail</a></li>
+         <ul class="menu dropdown-content bg-gray-800 rounded-box w-52 p-2 shadow absolute right-[10%]">
+          <li><a class="text-white hover:bg-gray-800">John Smith</a></li>
+          <li><a class="text-white hover:bg-gray-800">johnsmithemail</a></li>
           <hr>
-          <li><a class="text-white hover:bg-gray-600">Log out</a></li>
+          <li><a class="text-white hover:bg-gray-800">Log out</a></li>
         </ul>
       </details>
     </div>

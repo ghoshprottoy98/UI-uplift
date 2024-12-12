@@ -1,7 +1,16 @@
-<nav class="flex flex-col h-full">
+<nav class="flex flex-col h-full shadow-left">
   <div class="flex items-center justify-between">
     <div class="flex">
       <app-sidebar-toggler></app-sidebar-toggler>
+    </div>
+    <div class="flex items-center justify-end">
+      <a href="https://www.bracits.com" target="_blank">
+        <img
+          src="src/assets/media/logos/bracit-logo.svg" 
+          alt="BRAC IT Services" 
+          class="h-8 mr-4"
+        />
+      </a>
     </div>
   </div>
 
@@ -12,8 +21,8 @@
           [routerLink]="item.route"
           class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-gray-200 text-black font-bold': selectedLabel === item.label,
-            'text-white hover:bg-gray-200 hover:cursor-pointer hover:text-black hover:font-bold': selectedLabel !== item.label
+            'bg-[#f45c5c] text-white font-bold': selectedLabel === item.label,
+            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': selectedLabel !== item.label
           }"
           (click)="selectItem(item.label)"
         >
