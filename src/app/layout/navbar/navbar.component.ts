@@ -7,10 +7,9 @@ import { LayoutService } from '../layout.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-
   breadcrumbs: Array<{ label: string, link: string }> = [];
   isCollapsed$ = new Observable<boolean>();
 
@@ -23,14 +22,16 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.route.root);
     });
   }
 
-  private createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Array<{ label: string, link: string }> = []): Array<{ label: string, link: string }> {
+  private createBreadcrumbs(
+    route: ActivatedRoute,
+    url: string = '',
+    breadcrumbs: Array<{ label: string, link: string }> = []
+  ): Array<{ label: string, link: string }> {
     const children: ActivatedRoute[] = route.children;
 
     if (children.length === 0) {
@@ -38,7 +39,7 @@ export class NavbarComponent implements OnInit {
     }
 
     for (let child of children) {
-      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+      const routeURL: string = child.snapshot.url.map((segment) => segment.path).join('/');
       if (routeURL) {
         const label = this.getLabel(routeURL);
         const link = url + '/' + routeURL;
@@ -52,6 +53,8 @@ export class NavbarComponent implements OnInit {
 
   private getLabel(route: string): string {
     switch (route) {
+      case 'home':
+        return 'Home';
       case 'web-notifications':
         return 'Web Notifications';
       case 'sms-email-notification-history':

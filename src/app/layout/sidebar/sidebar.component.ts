@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 export class SidebarComponent {
   isCollapsed$ = new Observable<boolean>();
   menuItems = [
-    { label: 'Layouts', route: '/layouts' },
-    { label: 'Templates', route: '/templates' },
-    { label: 'SMS/Email Notification History', route: '/sms-email-notification-history' },
-    { label: 'Web Notifications', route: '/web-notifications' }
+    { label: 'Layouts', route: '/home/layouts' },
+    { label: 'Templates', route: '/home/templates' },
+    { label: 'SMS/Email Notification History', route: '/home/sms-email-notification-history' },
+    { label: 'Web Notifications', route: '/home/web-notifications' }
   ];
   
   constructor(private layoutService: LayoutService) {}
