@@ -16,9 +16,15 @@ export class SidebarComponent {
     { label: 'Web Notifications', route: '/home/web-notifications' }
   ];
   
+  selectedLabel: string | null = null;
+
   constructor(private layoutService: LayoutService) {}
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
+  }
+
+  selectItem(label: string): void {
+    this.selectedLabel = label;
   }
 }

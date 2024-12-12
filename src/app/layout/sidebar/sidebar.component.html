@@ -1,22 +1,25 @@
 <nav class="flex flex-col h-full">
   <div class="flex items-center justify-between">
-        <div class="flex">
-          <app-sidebar-toggler></app-sidebar-toggler>
-        </div>
-  </div>
-        
-  
-  <div class="flex-grow overflow-y-auto">
-    <ul class="mt-4 px-4">
-     <li *ngFor="let item of menuItems" class="mb-4">
-      <a
-      [routerLink]="item.route"
-      class="flex items-center text-sm p-2 whitespace-nowrap text-white hover:bg-gray-200 hover:cursor-pointer hover:text-black rounded h-8"
-    >
-      <span *ngIf="!(isCollapsed$ | async)" class="ml-2">{{ item.label }}</span>
-    </a>
-    </li>
-  </ul>
+    <div class="flex">
+      <app-sidebar-toggler></app-sidebar-toggler>
+    </div>
   </div>
 
+  <div class="flex-grow overflow-y-auto">
+    <ul class="mt-4 px-4">
+      <li *ngFor="let item of menuItems" class="mb-4">
+        <a
+          [routerLink]="item.route"
+          class="flex items-center text-sm p-1 whitespace-nowrap rounded h-10"
+          [ngClass]="{
+            'bg-gray-200 text-black': selectedLabel === item.label,
+            'text-white hover:bg-gray-200 hover:cursor-pointer hover:text-black': selectedLabel !== item.label
+          }"
+          (click)="selectItem(item.label)"
+        >
+          <span *ngIf="!(isCollapsed$ | async)" class="ml-2">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
