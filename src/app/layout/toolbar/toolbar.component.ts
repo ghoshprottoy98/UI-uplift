@@ -12,6 +12,8 @@ import { LayoutService } from '../layout.service';
 })
 export class ToolbarComponent implements OnInit {
 
+  isCollapsed$ = new Observable<boolean>();
+
   breadcrumbs: Array<{ label: string, link: string }> = [];
 
   constructor(
@@ -21,6 +23,7 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isCollapsed$ = this.layoutService.isCollapsed$;
 
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.route.root);

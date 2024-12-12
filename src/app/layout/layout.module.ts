@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarTogglerComponent } from './components/sidebar-toggler/sidebar-toggler.component';
@@ -9,7 +9,7 @@ import { SmsEmailNotificationHistoryComponent } from './sms-email-notification-h
 import { LayoutsComponent } from './layouts/layouts.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FooterComponent } from './footer/footer.component';
-import { ToolbarComponent } from './toolbar/toolbar.component'; 
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 
@@ -27,10 +27,11 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgOptimizedImage
   ],
   exports: [
-    LayoutComponent 
+    LayoutComponent
   ]
 })
 export class LayoutModule { }
