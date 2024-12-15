@@ -2,9 +2,10 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap/dist/css/bootstrap.rtl.css";
 @import 'ag-grid-community/styles/ag-grid.css';
-@import 'ag-grid-community/styles/ag-theme-quartz.css'; 
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
 @import "@fortawesome/fontawesome-free/css/all.min.css";
- 
+@import "@bracit/angular/easy-grid/_index.scss";
+
 
 
 /* You can add global styles to this file, and also import other style files */
