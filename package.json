@@ -21,8 +21,10 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@bracit/angular": "^18.2.2",
-    "ag-grid-community": "^33.0.1",
+    "ag-grid-angular": "^33.0.2",
+    "ag-grid-community": "^33.0.2",
     "angular-inline-svg": "^0.0.911",
+    "ng-inline-svg": "^13.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
