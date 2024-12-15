@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../layout.service';
 import { Observable } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -11,37 +12,32 @@ import { filter } from 'rxjs/operators';
 })
 export class SidebarComponent implements OnInit {
   isCollapsed$: Observable<boolean> | undefined;
-
-  menuItems = [
-    { label: 'Layouts', route: '/layouts', submenu: [] },
-    { label: 'Templates', route: '/templates', submenu: [] },
-    { label: 'SMS/Email Notification History', route: '/sms-email-notification-history', submenu: [] },
-    { 
-      label: 'Web Notifications', 
-      route: '/menu', 
-      submenu: [
-        { label: 'Submenu Item 1', route: '/web-notifications' },
-        { label: 'Submenu Item 2', route: '/web-notifications/subitem2' }
-      ]
-    }
-  ];
-
+  menuItems: any[] = [];
   selectedLabel: string | null = null;
   currentUrl: string = '';
-  
-  // A new property to track the open/closed state of each submenu
   openSubmenus: { [key: string]: boolean } = {};
 
-  constructor(private layoutService: LayoutService, private router: Router) {}
+  constructor(
+    private layoutService: LayoutService, 
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
     this.setSelectedLabelFromRoute();
+    this.loadMenuItems();
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.setSelectedLabelFromRoute();
+    });
+  }
+
+  loadMenuItems(): void {
+    this.http.get<any[]>('./assets/data.json').subscribe(data => {
+      this.menuItems = data.sort((a, b) => a.menuOrder - b.menuOrder);
     });
   }
 
@@ -57,26 +53,24 @@ export class SidebarComponent implements OnInit {
       return;
     }
 
-    const selectedItem = this.menuItems.find(item => this.currentUrl.startsWith(item.route));
+    const selectedItem = this.menuItems.find(item => this.currentUrl.startsWith(item.href));
     if (selectedItem) {
-      this.selectedLabel = selectedItem.label;
+      this.selectedLabel = selectedItem.title;
     }
   }
 
   isActive(item: any): boolean {
-    return this.currentUrl.startsWith(item.route);
+    return this.currentUrl.startsWith(item.href);
   }
 
   isSubmenuActive(subItemRoute: string): boolean {
     return this.currentUrl.startsWith(subItemRoute);
   }
 
-  // Toggle the submenu visibility for the clicked item
   toggleSubmenu(label: string): void {
     this.openSubmenus[label] = !this.openSubmenus[label];
   }
 
-  // Check if the submenu is open
   isSubmenuOpen(label: string): boolean {
     return !!this.openSubmenus[label];
   }

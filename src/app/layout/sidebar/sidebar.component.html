@@ -19,23 +19,22 @@
     <ul class="mt-4 px-4">
       <li *ngFor="let item of menuItems" class="mb-3">
         <a
-          [routerLink]="item.route"
+          [routerLink]="item.href"
           class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-[#f45c5c] text-white font-bold py-2': selectedLabel === item.label,
-            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': selectedLabel !== item.label
+            'bg-[#f45c5c] text-white font-bold py-2': selectedLabel === item.title,
+            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': selectedLabel !== item.title
           }"
-          (click)="selectItem(item.label); toggleSubmenu(item.label)"
+          (click)="selectItem(item.title); toggleSubmenu(item.title)"
         >
-          <span *ngIf="!(isCollapsed$ | async)">{{ item.label }}</span>
-          <!-- Submenu Toggle Button (Triangle Icon) -->
+          <i class="{{ item.icon }}" class="mr-2"></i>
+          <span *ngIf="!(isCollapsed$ | async)">{{ item.title }}</span>
           <span *ngIf="item.submenu?.length" class="ml-auto">
-            <i class="fas" [ngClass]="{'fa-chevron-down': isSubmenuOpen(item.label), 'fa-chevron-up': !isSubmenuOpen(item.label)}"></i>
+            <i class="fas" [ngClass]="{'fa-chevron-down': isSubmenuOpen(item.title), 'fa-chevron-up': !isSubmenuOpen(item.title)}"></i>
           </span>
         </a>
 
-        <!-- Submenu for items with nested routes -->
-        <ul *ngIf="isSubmenuOpen(item.label)" class="ml-4 mt-2 pl-4">
+        <ul *ngIf="isSubmenuOpen(item.title)" class="ml-4 mt-2 pl-4">
           <li *ngFor="let subItem of item.submenu">
             <a 
               [routerLink]="subItem.route"

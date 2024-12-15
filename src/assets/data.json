@@ -1,0 +1,59 @@
+[
+    {
+      "id": 1,
+      "title": "Layouts",
+      "parentId": null,
+      "active": true,
+      "href": "/layouts",
+      "routerLink": "",
+      "icon": "fa-solid fa-columns",
+      "iconType": "fa",
+      "menuOrder": 1,
+      "module": "app",
+      "role": "ROLE_USER",
+      "target": ""
+    },
+    {
+      "id": 2,
+      "title": "Templates",
+      "parentId": null,
+      "active": true,
+      "href": "/templates",
+      "routerLink": "",
+      "icon": "fa-solid fa-file-alt",
+      "iconType": "fa",
+      "menuOrder": 2,
+      "module": "app",
+      "role": "ROLE_USER",
+      "target": ""
+    },
+    {
+      "id": 3,
+      "title": "Web Notifications",
+      "parentId": null,
+      "active": true,
+      "href": "/web-notifications",
+      "routerLink": "",
+      "icon": "fa-solid fa-bell",
+      "iconType": "fa",
+      "menuOrder": 3,
+      "module": "app",
+      "role": "ROLE_USER",
+      "target": ""
+    },
+    {
+      "id": 4,
+      "title": "SMS/Email History",
+      "parentId": null,
+      "active": true,
+      "href": "/sms-email-notification-history",
+      "routerLink": "",
+      "icon": "fa-solid fa-envelope",
+      "iconType": "fa",
+      "menuOrder": 4,
+      "module": "app",
+      "role": "ROLE_USER",
+      "target": ""
+    }
+  ]
+  
