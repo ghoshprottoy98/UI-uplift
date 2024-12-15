@@ -37,9 +37,20 @@ export class SidebarComponent implements OnInit {
 
   loadMenuItems(): void {
     this.http.get<any[]>('./assets/data.json').subscribe(data => {
-      this.menuItems = data.sort((a, b) => a.menuOrder - b.menuOrder);
+      const menuMap: { [key: number]: any } = {};
+        data.forEach(item => {
+        item.submenu = [];
+        menuMap[item.id] = item;
+      });
+        data.forEach(item => {
+        if (item.parentId !== null) {
+          menuMap[item.parentId].submenu.push(item);
+        }
+      });
+        this.menuItems = data.filter(item => item.parentId === null).sort((a, b) => a.menuOrder - b.menuOrder);
     });
   }
+  
 
   selectItem(label: string): void {
     this.selectedLabel = label;

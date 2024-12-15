@@ -22,8 +22,8 @@
           [routerLink]="item.href"
           class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-[#f45c5c] text-white font-bold py-2': selectedLabel === item.title,
-            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': selectedLabel !== item.title
+            'bg-[#f45c5c] text-white font-bold p-2': selectedLabel === item.title,
+            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': selectedLabel !== item.title
           }"
           (click)="selectItem(item.title); toggleSubmenu(item.title)"
         >
@@ -33,18 +33,19 @@
             <i class="fas" [ngClass]="{'fa-chevron-down': isSubmenuOpen(item.title), 'fa-chevron-up': !isSubmenuOpen(item.title)}"></i>
           </span>
         </a>
-
+    
         <ul *ngIf="isSubmenuOpen(item.title)" class="ml-4 mt-2 pl-4">
-          <li *ngFor="let subItem of item.submenu">
+          <li *ngFor="let subItem of item.submenu" class="mb-1">
             <a 
-              [routerLink]="subItem.route"
+              [routerLink]="subItem.href"
               class="flex items-center text-sm whitespace-nowrap rounded h-10"
               [ngClass]="{
-                'bg-[#f45c5c] text-white font-bold': isSubmenuActive(subItem.route),
-                'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': !isSubmenuActive(subItem.route)
+                'bg-[#f45c5c] text-white font-bold p-2': isSubmenuActive(subItem.href),
+                'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': !isSubmenuActive(subItem.href)
               }"
             >
-              <span *ngIf="!(isCollapsed$ | async)" class="ml-2">{{ subItem.label }}</span>
+              <i class="{{ subItem.icon }}" class="mr-2"></i>
+              <span>{{ subItem.title }}</span>
             </a>
           </li>
         </ul>

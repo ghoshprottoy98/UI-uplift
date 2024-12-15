@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
 import { EasyGridModule } from "@bracit/angular/easy-grid";
+import { SmsHistoryComponent } from './sms-email-notification-history/sms-history/sms-history.component';
+import { EmailHistoryComponent } from './sms-email-notification-history/email-history/email-history.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { EasyGridModule } from "@bracit/angular/easy-grid";
     TemplatesComponent,
     FooterComponent,
     ToolbarComponent,
-    HomeComponent
+    HomeComponent,
+    SmsHistoryComponent,
+    EmailHistoryComponent
   ],
   imports: [
     CommonModule,

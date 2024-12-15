@@ -9,6 +9,7 @@ import { LayoutService } from './layout.service';
 })
 export class LayoutComponent {
   isCollapsed$ = new Observable<boolean>();
+  
 
   constructor(private layoutService: LayoutService) {}
 
