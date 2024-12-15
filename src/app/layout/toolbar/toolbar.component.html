@@ -12,9 +12,9 @@
 
  <div class="breadcrumbs text-sm px-1">
     <ul class="flex space-x-1">
-      <li *ngFor="let crumb of breadcrumbs; let last = last" class="text-[#0c2c54]">
+      <li *ngFor="let crumb of breadcrumbs; let last = last" class="text-dark">
         <ng-container *ngIf="!last; else lastCrumb">
-          <a [routerLink]="crumb.link" class="text-[#0c2c54] hover:text-gray-800">{{ crumb.label }}</a>
+          <a [routerLink]="crumb.link" class="text-dark">{{ crumb.label }}</a>
         </ng-container>
         <ng-template #lastCrumb>{{ crumb.label }}</ng-template>
       </li>
@@ -30,10 +30,10 @@
           </div>
         </summary>
          <ul class="menu dropdown-content bg-gray-100 rounded-box w-52 p-2 shadow absolute right-[10%] z-[1]">
-          <li><a class="text-[#0c2c54] hover:bg-gray-100">John Smith</a></li>
-          <li><a class="text-[#0c2c54] hover:bg-gray-100">johnsmithemail</a></li>
+          <li><a class="text-dark hover:bg-gray-100">John Smith</a></li>
+          <li><a class="text-darkhover:bg-gray-100">johnsmithemail</a></li>
           <hr>
-          <li><span class="text-[#0c2c54] hover:bg-gray-100" (click)="logOut()">Log out</span></li>
+          <li><span class="text-dark hover:bg-gray-100" (click)="logOut()">Log out</span></li>
         </ul>
       </details>
     </div>

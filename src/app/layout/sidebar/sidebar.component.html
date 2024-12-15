@@ -22,8 +22,8 @@
           [routerLink]="item.href"
           class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-[#f45c5c] text-white font-bold p-2': selectedLabel === item.title,
-            'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': selectedLabel !== item.title
+            'bg-primary text-white font-bold p-2': selectedLabel === item.title,
+            'text-dark hover:bg-primary hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': selectedLabel !== item.title
           }"
           (click)="selectItem(item.title, item.href); toggleSubmenu(item.title)"
         >
@@ -40,8 +40,8 @@
               [routerLink]="subItem.href"
               class="flex items-center text-sm whitespace-nowrap rounded h-10"
               [ngClass]="{
-                'bg-[#f45c5c] text-white font-bold p-2': isSubmenuActive(subItem.href),
-                'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': !isSubmenuActive(subItem.href)
+                'bg-primary text-white font-bold p-2': isSubmenuActive(subItem.href),
+                'text-dark hover:bg-primary hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': !isSubmenuActive(subItem.href)
               }"
             >
               <i class="{{ subItem.icon }}" class="mr-2"></i>
