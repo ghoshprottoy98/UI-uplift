@@ -28,6 +28,16 @@ export class SidebarComponent implements OnInit {
     this.setSelectedLabelFromRoute();
     this.loadMenuItems();
 
+    const storedSelectedLabel = sessionStorage.getItem('selectedLabel');
+    if (storedSelectedLabel) {
+      this.selectedLabel = storedSelectedLabel;
+    }
+
+    const storedSubmenus = sessionStorage.getItem('openSubmenus');
+    if (storedSubmenus) {
+      this.openSubmenus = JSON.parse(storedSubmenus);
+    }
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -38,22 +48,25 @@ export class SidebarComponent implements OnInit {
   loadMenuItems(): void {
     this.http.get<any[]>('./assets/data.json').subscribe(data => {
       const menuMap: { [key: number]: any } = {};
-        data.forEach(item => {
+      data.forEach(item => {
         item.submenu = [];
         menuMap[item.id] = item;
       });
-        data.forEach(item => {
+      data.forEach(item => {
         if (item.parentId !== null) {
           menuMap[item.parentId].submenu.push(item);
         }
       });
-        this.menuItems = data.filter(item => item.parentId === null).sort((a, b) => a.menuOrder - b.menuOrder);
+      this.menuItems = data.filter(item => item.parentId === null).sort((a, b) => a.menuOrder - b.menuOrder);
     });
   }
-  
 
   selectItem(label: string): void {
+    if (this.isCollapsed$) {
+      this.layoutService.toggleSidebar(); 
+    }
     this.selectedLabel = label;
+    sessionStorage.setItem('selectedLabel', label);  
   }
 
   private setSelectedLabelFromRoute(): void {
@@ -61,12 +74,14 @@ export class SidebarComponent implements OnInit {
 
     if (this.currentUrl === '/home') {
       this.selectedLabel = null;
+      sessionStorage.removeItem('selectedLabel');  
       return;
     }
 
     const selectedItem = this.menuItems.find(item => this.currentUrl.startsWith(item.href));
     if (selectedItem) {
       this.selectedLabel = selectedItem.title;
+      sessionStorage.setItem('selectedLabel', selectedItem.title);  
     }
   }
 
@@ -80,6 +95,7 @@ export class SidebarComponent implements OnInit {
 
   toggleSubmenu(label: string): void {
     this.openSubmenus[label] = !this.openSubmenus[label];
+    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
   }
 
   isSubmenuOpen(label: string): boolean {

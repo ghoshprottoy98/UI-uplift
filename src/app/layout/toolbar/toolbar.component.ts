@@ -30,10 +30,16 @@ export class ToolbarComponent implements OnInit {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
     this.loadMenuItems();
 
+    const storedBreadcrumbs = sessionStorage.getItem('breadcrumbs');
+    if (storedBreadcrumbs) {
+      this.breadcrumbs = JSON.parse(storedBreadcrumbs);
+    }
+
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.route.root);
+      sessionStorage.setItem('breadcrumbs', JSON.stringify(this.breadcrumbs));
     });
   }
 
@@ -69,7 +75,6 @@ export class ToolbarComponent implements OnInit {
       if (routeURL) {
         const matchedItem = this.findMenuItemByUrl(routeURL);
         if (matchedItem) {
-          // Find the full path including parent items
           this.addBreadcrumbsForItem(matchedItem, breadcrumbs, url);
         }
         return this.createBreadcrumbs(child, url + '/' + routeURL, breadcrumbs);
@@ -88,19 +93,19 @@ export class ToolbarComponent implements OnInit {
     link: string
   }>, currentUrl: string): void {
     // Build breadcrumb from the top level, considering parent-child relationships
-    const breadcrumbPath: Array<{ label: string, link: string }> = [];
-    let currentItem = item;
+  // private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{ label: string, link: string }>, currentUrl: string): void {
+  //   const breadcrumbPath: Array<{ label: string, link: string }> = [];
+  //   let currentItem = item;
 
-    // Loop through the parent items until we hit the top level
-    while (currentItem) {
-      breadcrumbPath.unshift({label: currentItem.title, link: currentUrl});
-      currentUrl = currentItem.parentId ? currentUrl.replace(currentItem.href, '') : currentUrl;
-      currentItem = currentItem.parentId ? this.findMenuItemById(currentItem.parentId) : null;
-    }
+  //   while (currentItem) {
+  //     breadcrumbPath.unshift({label: currentItem.title, link: currentUrl});
+  //     currentUrl = currentItem.parentId ? currentUrl.replace(currentItem.href, '') : currentUrl;
+  //     currentItem = currentItem.parentId ? this.findMenuItemById(currentItem.parentId) : null;
+  //   }
 
-    breadcrumbPath.forEach(crumb => {
-      breadcrumbs.push(crumb);
-    });
+  //   breadcrumbPath.forEach(crumb => {
+  //     breadcrumbs.push(crumb);
+  //   });
   }
 
   private findMenuItemById(id: number): any {

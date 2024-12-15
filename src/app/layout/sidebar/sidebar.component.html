@@ -3,7 +3,7 @@
     <div class="flex">
       <app-sidebar-toggler></app-sidebar-toggler>
     </div>
-    <div class="flex">
+    <div class="flex" *ngIf="!(isCollapsed$ | async)">
       <a href="https://www.bracits.com" target="_blank">
         <img
           [ngSrc]="'./assets/media/logos/bracit-logo.svg'"
@@ -33,7 +33,7 @@
             <i class="fas" [ngClass]="{'fa-chevron-down': isSubmenuOpen(item.title), 'fa-chevron-up': !isSubmenuOpen(item.title)}"></i>
           </span>
         </a>
-    
+
         <ul *ngIf="isSubmenuOpen(item.title)" class="ml-4 mt-2 pl-4">
           <li *ngFor="let subItem of item.submenu" class="mb-1">
             <a 
