@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../layout.service';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,22 +10,34 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  isCollapsed$ = new Observable<boolean>();
+  isCollapsed$: Observable<boolean> | undefined;
+
   menuItems = [
-    { label: 'Layouts', route: '/home/layouts' },
-    { label: 'Templates', route: '/home/templates' },
-    { label: 'SMS/Email Notification History', route: '/home/sms-email-notification-history' },
-    { label: 'Web Notifications', route: '/home/web-notifications' }
+    { label: 'Layouts', route: '/layouts', submenu: [] },
+    { label: 'Templates', route: '/templates', submenu: [] },
+    { label: 'SMS/Email Notification History', route: '/sms-email-notification-history', submenu: [] },
+    { 
+      label: 'Web Notifications', 
+      route: '/web-notifications', 
+      submenu: [
+        { label: 'Submenu Item 1', route: '/web-notifications/subitem1' },
+        { label: 'Submenu Item 2', route: '/web-notifications/subitem2' }
+      ]
+    }
   ];
   
   selectedLabel: string | null = null;
-
-  constructor(private layoutService: LayoutService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  currentUrl: string = ''; 
+  
+  constructor(private layoutService: LayoutService, private router: Router) {}
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
     this.setSelectedLabelFromRoute();
-    this.router.events.subscribe(() => {
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
       this.setSelectedLabelFromRoute();
     });
   }
@@ -34,16 +47,24 @@ export class SidebarComponent implements OnInit {
   }
 
   private setSelectedLabelFromRoute(): void {
-    const currentUrl = this.router.url; 
+    this.currentUrl = this.router.url;
     
-    if (currentUrl === '/home') {
-      this.selectedLabel = null; 
+    if (this.currentUrl === '/home') {
+      this.selectedLabel = null;
       return;
     }
 
-    const selectedItem = this.menuItems.find(item => currentUrl.startsWith(item.route));  
+    const selectedItem = this.menuItems.find(item => this.currentUrl.startsWith(item.route));
     if (selectedItem) {
-      this.selectedLabel = selectedItem.label; 
+      this.selectedLabel = selectedItem.label;
     }
+  }
+
+  isActive(item: any): boolean {
+    return this.currentUrl.startsWith(item.route);
+  }
+
+  isSubmenuActive(subItemRoute: string): boolean {
+    return this.currentUrl.startsWith(subItemRoute);
   }
 }

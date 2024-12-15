@@ -1,9 +1,9 @@
 <nav class="flex flex-col h-full shadow-left">
-  <div class="flex items-center justify-between">
+  <div class="flex items-center items-start">
     <div class="flex">
       <app-sidebar-toggler></app-sidebar-toggler>
     </div>
-    <div class="flex items-center justify-end">
+    <div class="flex">
       <a href="https://www.bracits.com" target="_blank">
         <img
         [ngSrc]="'./assets/media/logos/bracit-logo.svg'"
@@ -22,13 +22,29 @@
           [routerLink]="item.route"
           class="flex items-center text-sm whitespace-nowrap rounded h-10"
           [ngClass]="{
-            'bg-[#f45c5c] text-white font-bold': selectedLabel === item.label,
+            'bg-[#f45c5c] text-white font-bold py-2': selectedLabel === item.label,
             'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': selectedLabel !== item.label
           }"
           (click)="selectItem(item.label)"
         >
-          <span *ngIf="!(isCollapsed$ | async)" class="ml-2">{{ item.label }}</span>
+          <span *ngIf="!(isCollapsed$ | async)"  >{{ item.label }}</span>
         </a>
+
+        <!-- Submenu for items with nested routes -->
+        <ul *ngIf="item.submenu?.length" class="ml-4">
+          <li *ngFor="let subItem of item.submenu">
+            <a 
+              [routerLink]="subItem.route"
+              class="flex items-center text-sm whitespace-nowrap rounded h-10"
+              [ngClass]="{
+                'bg-[#f45c5c] text-white font-bold': isSubmenuActive(subItem.route),
+                'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold': !isSubmenuActive(subItem.route)
+              }"
+            >
+              <span *ngIf="!(isCollapsed$ | async)" class="ml-2">{{ subItem.label }}</span>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

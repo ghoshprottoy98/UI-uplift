@@ -4,11 +4,10 @@ import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../layout.service';
 
-
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.css'
+  styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
 
@@ -30,7 +29,6 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-
   private createBreadcrumbs(
     route: ActivatedRoute,
     url: string = '',
@@ -39,6 +37,8 @@ export class ToolbarComponent implements OnInit {
     const children: ActivatedRoute[] = route.children;
 
     if (children.length === 0) {
+      // Add Home as the first breadcrumb
+      breadcrumbs.unshift({ label: 'Home', link: '/' });
       return breadcrumbs;
     }
 
@@ -57,11 +57,14 @@ export class ToolbarComponent implements OnInit {
 
   private getLabel(route: string): string {
     switch (route) {
-
+      case 'layouts':
+        return 'Layouts';
+      case 'templates':
+        return 'Templates';
+      case 'sms-email-notification-history':
+        return 'SMS/Email Notification History';
       case 'web-notifications':
         return 'Web Notifications';
-      case 'sms-email-notification-history':
-        return 'Sms/Email Notification History';
       default:
         return this.capitalize(route);
     }
@@ -70,5 +73,4 @@ export class ToolbarComponent implements OnInit {
   private capitalize(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1).replace('-', ' ');
   }
-
 }
