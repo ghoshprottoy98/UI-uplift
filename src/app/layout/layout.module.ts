@@ -11,7 +11,6 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
-import { InlineSVGModule } from 'ng-inline-svg';
 import { EasyGridModule } from "@bracit/angular/easy-grid";
 
 @NgModule({
@@ -32,7 +31,6 @@ import { EasyGridModule } from "@bracit/angular/easy-grid";
     RouterModule,
     NgOptimizedImage,
     EasyGridModule,
-    InlineSVGModule.forRoot(),
   ],
   exports: [
     LayoutComponent

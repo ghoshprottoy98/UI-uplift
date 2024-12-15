@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
-import { ColDef, GridOptions, RowSpanParams} from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'app-layouts',
@@ -45,14 +45,6 @@ export class LayoutsComponent  implements OnInit {
       cellRenderer: 'booleanCellRenderer'
     },
   ];
-  options: GridOptions = {
-    rowSelection: 'multiple',
-    rowMultiSelectWithClick: true,
-    onRowSelected: (event) => {
-      console.log('Row selected:', event.node.data);
-    },
-    
-  };
 
   constructor(private cdr: ChangeDetectorRef) {}
 
