@@ -62,9 +62,6 @@ export class SidebarComponent implements OnInit {
   }
 
   selectItem(label: string): void {
-    if (this.isCollapsed$) {
-      this.layoutService.toggleSidebar(); 
-    }
     this.selectedLabel = label;
     sessionStorage.setItem('selectedLabel', label);  
   }

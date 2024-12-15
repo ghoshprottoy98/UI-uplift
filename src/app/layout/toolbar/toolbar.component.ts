@@ -88,24 +88,19 @@ export class ToolbarComponent implements OnInit {
     this.authService.logout()
   }
 
-  private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{
-    label: string,
-    link: string
-  }>, currentUrl: string): void {
-    // Build breadcrumb from the top level, considering parent-child relationships
-  // private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{ label: string, link: string }>, currentUrl: string): void {
-  //   const breadcrumbPath: Array<{ label: string, link: string }> = [];
-  //   let currentItem = item;
+  private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{ label: string, link: string }>, currentUrl: string): void {
+    const breadcrumbPath: Array<{ label: string, link: string }> = [];
+    let currentItem = item;
 
-  //   while (currentItem) {
-  //     breadcrumbPath.unshift({label: currentItem.title, link: currentUrl});
-  //     currentUrl = currentItem.parentId ? currentUrl.replace(currentItem.href, '') : currentUrl;
-  //     currentItem = currentItem.parentId ? this.findMenuItemById(currentItem.parentId) : null;
-  //   }
+    while (currentItem) {
+      breadcrumbPath.unshift({label: currentItem.title, link: currentUrl});
+      currentUrl = currentItem.parentId ? currentUrl.replace(currentItem.href, '') : currentUrl;
+      currentItem = currentItem.parentId ? this.findMenuItemById(currentItem.parentId) : null;
+    }
 
-  //   breadcrumbPath.forEach(crumb => {
-  //     breadcrumbs.push(crumb);
-  //   });
+    breadcrumbPath.forEach(crumb => {
+      breadcrumbs.push(crumb);
+    });
   }
 
   private findMenuItemById(id: number): any {
