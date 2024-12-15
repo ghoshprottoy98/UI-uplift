@@ -18,17 +18,20 @@ export class SidebarComponent implements OnInit {
     { label: 'SMS/Email Notification History', route: '/sms-email-notification-history', submenu: [] },
     { 
       label: 'Web Notifications', 
-      route: '/web-notifications', 
+      route: '/menu', 
       submenu: [
-        { label: 'Submenu Item 1', route: '/web-notifications/subitem1' },
+        { label: 'Submenu Item 1', route: '/web-notifications' },
         { label: 'Submenu Item 2', route: '/web-notifications/subitem2' }
       ]
     }
   ];
-  
+
   selectedLabel: string | null = null;
-  currentUrl: string = ''; 
+  currentUrl: string = '';
   
+  // A new property to track the open/closed state of each submenu
+  openSubmenus: { [key: string]: boolean } = {};
+
   constructor(private layoutService: LayoutService, private router: Router) {}
 
   ngOnInit(): void {
@@ -48,7 +51,7 @@ export class SidebarComponent implements OnInit {
 
   private setSelectedLabelFromRoute(): void {
     this.currentUrl = this.router.url;
-    
+
     if (this.currentUrl === '/home') {
       this.selectedLabel = null;
       return;
@@ -66,5 +69,15 @@ export class SidebarComponent implements OnInit {
 
   isSubmenuActive(subItemRoute: string): boolean {
     return this.currentUrl.startsWith(subItemRoute);
+  }
+
+  // Toggle the submenu visibility for the clicked item
+  toggleSubmenu(label: string): void {
+    this.openSubmenus[label] = !this.openSubmenus[label];
+  }
+
+  // Check if the submenu is open
+  isSubmenuOpen(label: string): boolean {
+    return !!this.openSubmenus[label];
   }
 }

@@ -37,8 +37,7 @@ export class ToolbarComponent implements OnInit {
     const children: ActivatedRoute[] = route.children;
 
     if (children.length === 0) {
-      // Add Home as the first breadcrumb
-      breadcrumbs.unshift({ label: 'Home', link: '/' });
+      breadcrumbs.unshift({ label: 'Home', link: '' });
       return breadcrumbs;
     }
 

@@ -7,12 +7,12 @@ import { TemplatesComponent } from './layout/templates/templates.component';
 import { HomeComponent } from './layout/home/home.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },  
   { path: 'home', component: HomeComponent },
   { path: 'layouts', component: LayoutsComponent },
   { path: 'templates', component: TemplatesComponent },
   { path: 'sms-email-notification-history', component: SmsEmailNotificationHistoryComponent },
   { path: 'web-notifications', component: WebNotificationsComponent },
-  // other routes...
 ];
 
 @NgModule({
