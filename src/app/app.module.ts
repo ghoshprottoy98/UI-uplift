@@ -1,9 +1,40 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LayoutModule } from './layout/layout.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {LayoutModule} from './layout/layout.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {AppInterceptor} from "../helper/app-interceptor";
+import {AppConfigService} from "./app.config.service";
+import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+
+
+export function initApp(configurator: AppConfigService) {
+  return () => configurator.init();
+}
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: AppConfigService.getIdpConfig(),
+      initOptions: {
+        checkLoginIframe: false,
+        onLoad: 'login-required',  // allowed values 'login-required', 'check-sso';
+        flow: "standard"          // allowed values 'standard', 'implicit', 'hybrid';
+      },
+      shouldAddToken: (request) => {
+        const {method, url} = request;
+
+        const isGetRequest = 'GET' === method.toUpperCase();
+        const acceptablePaths = ['/assets', '/clients/public', '*'];
+        const isAcceptablePathMatch = acceptablePaths.some((path) =>
+          url.includes(path)
+        );
+
+        return !(isGetRequest && isAcceptablePathMatch);
+      }
+    });
+}
 
 @NgModule({
   declarations: [
@@ -12,11 +43,28 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    KeycloakAngularModule,
     LayoutModule
   ],
   providers: [
+    AppConfigService,
+    {provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true},
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [AppConfigService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    },
     provideHttpClient(withInterceptorsFromDi())
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {
+}

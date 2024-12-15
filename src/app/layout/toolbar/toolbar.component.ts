@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../layout.service';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {LayoutService} from '../layout.service';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from "../../../shared/services/auth-service";
 
 @Component({
   selector: 'app-toolbar',
@@ -20,8 +21,10 @@ export class ToolbarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private layoutService: LayoutService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
+  }
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
@@ -50,11 +53,14 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Array<{ label: string, link: string }> = []): Array<{ label: string, link: string }> {
+  createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Array<{
+    label: string,
+    link: string
+  }> = []): Array<{ label: string, link: string }> {
     const children: ActivatedRoute[] = route.children;
 
     if (children.length === 0) {
-      breadcrumbs.unshift({ label: 'Home', link: '/' });
+      breadcrumbs.unshift({label: 'Home', link: '/'});
       return breadcrumbs;
     }
 
@@ -73,14 +79,21 @@ export class ToolbarComponent implements OnInit {
     return breadcrumbs;
   }
 
-  private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{ label: string, link: string }>, currentUrl: string): void {
+  logOut() {
+    this.authService.logout()
+  }
+
+  private addBreadcrumbsForItem(item: any, breadcrumbs: Array<{
+    label: string,
+    link: string
+  }>, currentUrl: string): void {
     // Build breadcrumb from the top level, considering parent-child relationships
     const breadcrumbPath: Array<{ label: string, link: string }> = [];
     let currentItem = item;
 
     // Loop through the parent items until we hit the top level
     while (currentItem) {
-      breadcrumbPath.unshift({ label: currentItem.title, link: currentUrl });
+      breadcrumbPath.unshift({label: currentItem.title, link: currentUrl});
       currentUrl = currentItem.parentId ? currentUrl.replace(currentItem.href, '') : currentUrl;
       currentItem = currentItem.parentId ? this.findMenuItemById(currentItem.parentId) : null;
     }
