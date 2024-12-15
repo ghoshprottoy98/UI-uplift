@@ -43,6 +43,13 @@ export class SidebarComponent implements OnInit {
     ).subscribe(() => {
       this.setSelectedLabelFromRoute();
     });
+
+    // Listen for layout toggle changes to close all submenus
+    this.layoutService.isCollapsed$.subscribe(isCollapsed => {
+      if (isCollapsed) {
+        this.closeAllSubmenus();
+      }
+    });
   }
 
   loadMenuItems(): void {
@@ -61,9 +68,37 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  selectItem(label: string): void {
+  selectItem(label: string, href: string): void {
+    // If the sidebar is collapsed, expand it
+    if (this.isCollapsed$) {
+      this.layoutService.setCollapseState(false); // Expanding the sidebar
+    }
+
     this.selectedLabel = label;
     sessionStorage.setItem('selectedLabel', label);  
+    
+    // Navigate to the selected item
+    this.router.navigate([href]);
+
+    // Close all other submenus
+    this.closeOtherSubmenus(label);
+  }
+
+  private closeOtherSubmenus(label: string): void {
+    // Close all submenus except the one that was clicked
+    Object.keys(this.openSubmenus).forEach(key => {
+      if (key !== label) {
+        this.openSubmenus[key] = false;
+      }
+    });
+    // Save the updated state of the submenus
+    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
+  }
+
+  private closeAllSubmenus(): void {
+    // Close all submenus
+    this.openSubmenus = {};
+    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
   }
 
   private setSelectedLabelFromRoute(): void {
@@ -91,11 +126,31 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleSubmenu(label: string): void {
-    this.openSubmenus[label] = !this.openSubmenus[label];
+    // Toggle the specific submenu and close other submenus
+    if (this.openSubmenus[label]) {
+      this.openSubmenus[label] = false; // Close if it's already open
+    } else {
+      this.openSubmenus[label] = true; // Open the clicked submenu
+      this.closeOtherSubmenus(label); // Ensure all other submenus are closed
+    }
+
     sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
   }
 
   isSubmenuOpen(label: string): boolean {
     return !!this.openSubmenus[label];
+  }
+
+  // Handle mouse hover behavior to open/close sidebar
+  onMouseEnter(): void {
+    if (this.isCollapsed$) {
+      this.layoutService.setCollapseState(false); // Expanding the sidebar when hovering
+    }
+  }
+
+  onMouseLeave(): void {
+    if (this.isCollapsed$) {
+      this.layoutService.setCollapseState(true); // Collapsing the sidebar after mouse leave
+    }
   }
 }

@@ -12,6 +12,10 @@ export class LayoutService {
     this.isCollapsedSubject.next(!this.isCollapsedSubject.value);
   }
 
+  setCollapseState(isCollapsed: boolean): void {
+    this.isCollapsedSubject.next(isCollapsed);
+  }
+
   setSidebarState(isCollapsed: boolean) {
     this.isCollapsedSubject.next(isCollapsed);
   }

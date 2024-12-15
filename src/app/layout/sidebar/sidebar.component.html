@@ -25,7 +25,7 @@
             'bg-[#f45c5c] text-white font-bold p-2': selectedLabel === item.title,
             'text-[#0c2c54] hover:bg-[#f45c5c] hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': selectedLabel !== item.title
           }"
-          (click)="selectItem(item.title); toggleSubmenu(item.title)"
+          (click)="selectItem(item.title, item.href); toggleSubmenu(item.title)"
         >
           <i class="{{ item.icon }}" class="mr-2"></i>
           <span *ngIf="!(isCollapsed$ | async)">{{ item.title }}</span>
