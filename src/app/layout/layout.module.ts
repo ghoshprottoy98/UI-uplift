@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { EasyGridModule } from "@bracit/angular/easy-grid";
 import { SmsHistoryComponent } from './sms-email-notification-history/sms-history/sms-history.component';
 import { EmailHistoryComponent } from './sms-email-notification-history/email-history/email-history.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { EmailHistoryComponent } from './sms-email-notification-history/email-hi
   imports: [
     CommonModule,
     RouterModule,
+    MatIconModule,
     NgOptimizedImage,
     EasyGridModule,
   ],

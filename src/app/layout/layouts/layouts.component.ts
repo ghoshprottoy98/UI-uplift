@@ -17,40 +17,43 @@ export class LayoutsComponent implements OnInit {
   ];
   loaded = false;
   @Input() pagination: boolean = false;
+  dataUrl = '/api/bpa/task/ready'
 
   columnDefs: ColDef[] = [
+    {field: 'name', filter: 'agTextColumnFilter', minWidth: 150},
+    {field: 'key', filter: 'agTextColumnFilter'},
+    {field: 'module', filter: 'agTextColumnFilter'},
     {
-      field: 'assessmentName',
-      headerName: 'Assessment Name',
-      filter: 'agTextColumnFilter',
-    },
-    {
-      field: 'assessmentType',
-      headerName: 'Assessment Type',
-      filter: 'agTextColumnFilter',
-      valueFormatter: (item) => {
-        if (item.value) {
-          return item.value.replace(/_/g, ' ');
-        } else {
-          return '';
-        }
+      colId: '__action',
+      type: 'actionColumn',
+      cellRendererParams: {
+        actions: [
+          {
+            title: 'View',
+            icon: 'account_tree',
+            class: 'success',
+            click: (node: any) => {
+              console.log(node);
+            }
+          },
+          {
+            title: 'All process',
+            icon: 'format_list_bulleted',
+            id: 'history',
+          },
+          {
+            title: 'Edit',
+            icon: 'edit',
+          },
+          {
+            title: 'Remove',
+            icon: 'delete',
+            class: 'warn',
+          },
+        ]
       },
-    },
-    {
-      headerName: "Active",
-      field: "isActive",
-      type: 'boolean',
-      filterParams: {
-        filterValues: {
-          true: 'Yes',
-          false: 'No'
-        }
-      },
-      filter: 'boolean',
-      cellRenderer: 'booleanCellRenderer'
-    },
+    }
   ];
-
   constructor(private cdr: ChangeDetectorRef) {
   }
 

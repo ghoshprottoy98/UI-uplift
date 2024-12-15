@@ -7,6 +7,8 @@ import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@ang
 import {AppInterceptor} from "../helper/app-interceptor";
 import {AppConfigService} from "./app.config.service";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {NgxSpinnerComponent} from "ngx-spinner";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 export function initApp(configurator: AppConfigService) {
@@ -42,9 +44,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     KeycloakAngularModule,
-    LayoutModule
+    LayoutModule,
+    NgxSpinnerComponent
   ],
   providers: [
     AppConfigService,
