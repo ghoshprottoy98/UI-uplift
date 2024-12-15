@@ -11,7 +11,7 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
-// import { EasyGridModule } from "@bracit/angular/easy-grid";
+import { EasyGridModule } from "@bracit/angular/easy-grid";
 
 @NgModule({
   declarations: [
@@ -30,8 +30,7 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     RouterModule,
     NgOptimizedImage,
-    // EasyGridModule,
-
+    EasyGridModule,
   ],
   exports: [
     LayoutComponent
