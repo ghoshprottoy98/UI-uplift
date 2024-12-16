@@ -5,5 +5,5 @@ export const environment = {
     clientId: 'slm',
   },
   production: false,
-  url: ''
+  apiUrl: '/api'
 };

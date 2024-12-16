@@ -2,10 +2,10 @@
 
   <div
 [ngClass]="{
- 'w-64': !(isCollapsed$ | async),
+ 'w-72': !(isCollapsed$ | async),
   'w-15': isCollapsed$ | async
    }"
-      class="h-screen bg-gray-100 text-[#0c2c54] transition-all duration-300"
+      class="h-screen bg-base-100 text-secondary transition-all duration-300"
     >
       <app-sidebar></app-sidebar>
  </div>

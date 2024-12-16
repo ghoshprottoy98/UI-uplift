@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { LayoutService } from '../../layout.service';
 
 const btnSidebarTogglerTlClass = {
-  'sidebar-btn-bg-dark': "p-2 m-2 text-gray-400 hover:text-white focus:outline-none",
-  'sidebar-btn-bg-light': "p-2 m-2 text-gray-400 hover:text-gray-600 focus:outline-none",
+  'sidebar-btn-bg-dark': "p-2 m-2 text-primary hover:text-secondary focus:outline-none",
+  'sidebar-btn-bg-light': "p-2 m-2 text-primary hover:text-secondary focus:outline-none",
 };
 
 @Component({
@@ -13,7 +13,7 @@ const btnSidebarTogglerTlClass = {
 })
 export class SidebarTogglerComponent {
   @Input() styleName: 'sidebar-btn-bg-dark' | 'sidebar-btn-bg-light' = 'sidebar-btn-bg-dark';
-  
+
   constructor(private layoutService: LayoutService) {}
 
   get btnClass(): string {

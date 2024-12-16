@@ -1,8 +1,12 @@
+@import 'tailwindcss/base';
+
+@import 'tailwindcss/components';
+
+@import 'tailwindcss/utilities';
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-quartz.css';
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "@bracit/angular/easy-grid/_index.scss";
-
 
 
 /* You can add global styles to this file, and also import other style files */
@@ -11,6 +15,45 @@
 @tailwind utilities;
 
 
-body{
+body {
   @apply overflow-hidden
+}
+
+.d-none {
+  @apply hidden
+}
+
+.mat-warn {
+  color: red !important;
+}
+
+.mat-primary {
+  color: blue !important;
+}
+
+.text-hover-primary {
+  @apply text-secondary
+}
+
+/* Scrollbar for modern browsers */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6c63ff, #bfa5ff); /* Smooth gradient thumb */
+  border-radius: 10px; /* Rounded edges */
+  border: 3px solid #f3f3f3; /* Matches the background */
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f3f3; /* Track background */
+  border-radius: 10px; /* Rounded edges for the track */
+  margin: 5px 0; /* Optional spacing between scrollbar and container */
+}
+
+
+/* Optional smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
