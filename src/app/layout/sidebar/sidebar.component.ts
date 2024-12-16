@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../layout.service';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { filter } from 'rxjs/operators';
+import {Component, computed, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {LayoutService} from '../layout.service';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 import {MenuService} from "../../../shared/services/menu-service";
-import {DynamicAsideMenuService} from "../../../shared/services/dynamic-aside-menu.service";
 import {list} from "postcss";
+
 
 @Component({
   selector: 'app-sidebar',
@@ -14,32 +13,43 @@ import {list} from "postcss";
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  isCollapsed$: Observable<boolean> | undefined;
+  isCollapsed$: Observable<any> | undefined;
   loaderSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   menuItems: any[] = [];
   selectedLabel: string | null = null;
   currentUrl: string = '';
   openSubmenus: { [key: string]: boolean } = {};
 
-  menuConfig: any;
-  subscriptions: Subscription[] = [];
+
+  count: WritableSignal<any> = signal(null);
+
+  activeParentId: Signal<any> = computed(() => {
+    return this.menuItems.find((item: any) => {
+      return item.children.find((child: any) => child.id === this.count());
+    })?.id || null;
+  });
+
+  openMenuIndex: number | null = null;
+  protected readonly Array = Array;
+  protected readonly list = list;
 
   constructor(
     private layoutService: LayoutService,
     private service: MenuService,
     private router: Router,
-    private menu: DynamicAsideMenuService,
-    private http: HttpClient
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.currentUrl = event.urlAfterRedirects; // Update the current URL on navigation
-        console.log(this.currentUrl)
+        this.currentUrl = event.urlAfterRedirects
+        if (this.menuItems.length){
+          let currentParentId = this.findParentId(event.urlAfterRedirects, this.menuItems);
+          this.count.set(currentParentId); // Update the current URL on navigation
+        }
       }
     });
-
 
 
     this.isCollapsed$ = this.layoutService.isCollapsed$;
@@ -64,52 +74,67 @@ export class SidebarComponent implements OnInit {
 
     this.layoutService.isCollapsed$.subscribe(isCollapsed => {
       if (isCollapsed) {
-        this.closeAllSubmenus();
+        // this.closeAllSubmenus();
       }
     });
   }
+
 
   loadMenuItems(): void {
-    this.service.ownMenu().subscribe((data: any) => {
-      const menuMap: any = {};
-      data.forEach((item: any) => {
-        item.children = [];
-        menuMap[item.id] = item;
-      });
-      data.forEach((item:any) => {
-        if (item.parentId !== null) {
-          menuMap[item.parentId]?.children.push(item);
+    this.service.ownMenu()
+      .pipe(
+        tap((data: any) => {
+          const menuMap: any = {};
+          data.forEach((item: any) => {
+            item.children = [];
+            menuMap[item.id] = item;
+          });
+          data.forEach((item: any) => {
+            if (item.parentId !== null) {
+              menuMap[item.parentId]?.children.push(item);
+            }
+          });
+          this.menuItems = data.filter((item: any) => item.parentId === null)
+            .sort((a: any, b: any) => a.menuOrder - b.menuOrder);
+
+          let currentParentId = this.findParentId(this.currentUrl, this.menuItems);
+
+          this.count.set(currentParentId)
+          this.loaderSubject.next(false);
+        })
+      )
+      .subscribe({
+        next: () => {
+          // this.router.events.subscribe((event) => {
+          //   if (event instanceof NavigationEnd) {
+          //     // console.log(this.menuItems);
+          //     let currentParentId = this.findParentId(event.urlAfterRedirects, this.menuItems);
+          //     console.log(currentParentId)
+          //     this.count.set(205); // Update the current URL on navigation
+          //   }
+          // });
+        },
+        error: (err) => {
+          console.error('Error loading menu items:', err);
+          this.loaderSubject.next(false); // Ensure loader stops even if there's an error
         }
       });
-    const x = this.menuItems =  data.filter((item: any) => item.parentId === null).sort((a: any, b: any) => a.menuOrder - b.menuOrder);
-
-    this.loaderSubject.next(false)
-    });
   }
 
-  selectItem(label: string, href: string): void {
-    if (this.isCollapsed$) {
-      this.layoutService.setCollapseState(false);
-    }
-
-    this.selectedLabel = label;
-    sessionStorage.setItem('selectedLabel', label);
-    this.router.navigate([href]);
-    this.closeOtherSubmenus(label);
-  }
-
-  private closeOtherSubmenus(label: string): void {
-    Object.keys(this.openSubmenus).forEach(key => {
-      if (key !== label) {
-        this.openSubmenus[key] = false;
+  findParentId(url: string, menuItems: any[], parentId: any = null): any {
+    for (const item of menuItems) {
+      if (item.routerLink === url) {
+        return parentId;
       }
-    });
-    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
-  }
 
-  private closeAllSubmenus(): void {
-    this.openSubmenus = {};
-    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
+      if (item.children && item.children.length > 0) {
+        const result = this.findParentId(url, item.children, item.id); // Pass current item's ID as the parentId
+        if (result !== null) {
+          return result;
+        }
+      }
+    }
+    return null;
   }
 
   private setSelectedLabelFromRoute(): void {
@@ -128,59 +153,17 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  isActive(item: any): boolean {
-    return this.currentUrl.startsWith(item.href);
+  onMouseEnter(event: MouseEvent){
+    this.layoutService.isCollapsed$.subscribe((item=>{
+      if (item){
+       // this.layoutService.toggleSidebar()
+      }
+    }))
+
+    // this.layoutService.toggleSidebar()
   }
 
-  isSubmenuActive(subItemRoute: string): boolean {
-    return this.currentUrl.startsWith(subItemRoute);
+  onMouseLeave(event: MouseEvent){
+    // this.layoutService.toggleSidebar()
   }
-
-  toggleSubmenu(label: string): void {
-    if (this.openSubmenus[label]) {
-      this.openSubmenus[label] = false;
-    } else {
-      this.openSubmenus[label] = true;
-      this.closeOtherSubmenus(label);
-    }
-
-    sessionStorage.setItem('openSubmenus', JSON.stringify(this.openSubmenus));
-  }
-
-  isSubmenuOpen(label: string): boolean {
-    return !!this.openSubmenus[label];
-  }
-
-  onMouseEnter(): void {
-    if (this.isCollapsed$) {
-      this.layoutService.setCollapseState(false);
-    }
-  }
-
-  onMouseLeave(): void {
-    if (this.isCollapsed$) {
-      this.layoutService.setCollapseState(true);
-    }
-  }
-
-
-  isChildItemActive(id: PropertyKey | undefined) {
-    if (!this.currentUrl) {
-      return false;
-    }
-
-    return this.menu.isMenuItemActive(this.currentUrl, id);
-  }
-
-  hasActiveChild(item: any): boolean {
-    return true
-  }
-  openMenuIndex: number | null = null;
-
-  toggleMenu(index: number): void {
-    this.openMenuIndex = this.openMenuIndex === index ? null : index;
-  }
-
-  protected readonly Array = Array;
-  protected readonly list = list;
 }
