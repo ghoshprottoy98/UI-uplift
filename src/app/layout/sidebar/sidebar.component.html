@@ -4,7 +4,7 @@
       <app-sidebar-toggler></app-sidebar-toggler>
     </div>
     <div class="flex" *ngIf="!(isCollapsed$ | async)">
-      <a href="https://www.bracits.com" target="_blank">
+      <a href="/">
         <img
           [ngSrc]="'./assets/media/logos/bracit-logo.svg'"
           [width]="100"
@@ -16,40 +16,75 @@
   </div>
 
   <div class="flex-grow overflow-y-auto">
-    <ul class="mt-4 px-4">
-      <li *ngFor="let item of menuItems" class="mb-3">
-        <a
-          [routerLink]="item.href"
-          class="flex items-center text-sm whitespace-nowrap rounded h-10"
-          [ngClass]="{
-            'bg-primary text-white font-bold p-2': selectedLabel === item.title,
-            'text-dark hover:bg-primary hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': selectedLabel !== item.title
-          }"
-          (click)="selectItem(item.title, item.href); toggleSubmenu(item.title)"
-        >
-          <i class="{{ item.icon }}" class="mr-2"></i>
-          <span *ngIf="!(isCollapsed$ | async)">{{ item.title }}</span>
-          <span *ngIf="item.submenu?.length" class="ml-auto">
-            <i class="fas" [ngClass]="{'fa-chevron-down': isSubmenuOpen(item.title), 'fa-chevron-up': !isSubmenuOpen(item.title)}"></i>
+    <div class="flex flex-col gap-4 mt-4 px-3" *ngIf="loaderSubject | async">
+        <div *ngFor="let i of Array(15)" class="skeleton h-4 w-full">
+        </div>
+    </div>
+    <ul class="menu rounded-box  mt-4 px-3" >
+      <ng-content *ngIf="!(isCollapsed$ | async) ; else list">
+        <li *ngFor="let item of menuItems ;let i = index" >
+          <a *ngIf="item?.children.length === 0; else subMenu1" class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1" [routerLink]="item?.routerLink"   [routerLinkActive]="'bg-primary text-base-100'">
+            <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
+            <span>
+          {{ item.title }}
           </span>
-        </a>
-
-        <ul *ngIf="isSubmenuOpen(item.title)" class="ml-4 mt-2 pl-4">
-          <li *ngFor="let subItem of item.submenu" class="mb-1">
-            <a 
-              [routerLink]="subItem.href"
-              class="flex items-center text-sm whitespace-nowrap rounded h-10"
-              [ngClass]="{
-                'bg-primary text-white font-bold p-2': isSubmenuActive(subItem.href),
-                'text-dark hover:bg-primary hover:cursor-pointer hover:text-white hover:font-bold hover:p-2': !isSubmenuActive(subItem.href)
-              }"
-            >
-              <i class="{{ subItem.icon }}" class="mr-2"></i>
-              <span>{{ subItem.title }}</span>
+          </a>
+          <ng-template #subMenu1>
+            <details open>
+              <summary  class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1">
+                <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
+                {{ item.title }}
+              </summary>
+              <ul>
+                <li *ngFor="let subItem1 of item?.children">
+                  <a
+                    [routerLink]="subItem1?.routerLink"
+                    [routerLinkActive]="'bg-primary text-base-100'"
+                    class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1"
+                    *ngIf="subItem1.children.length === 0; else subMenu2">
+                    {{ subItem1.title }}
+                  </a>
+                  <ng-template #subMenu2>
+                    <details  [open]="false" >
+                      <summary class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1">
+                        <i class="{{ subItem1.icon ?? 'fa-solid fa-fan' }} me-2"></i>
+                        {{ subItem1.title }}
+                      </summary>
+                      <ul >
+                        <li *ngFor="let subItem2 of subItem1?.children">
+                          <a
+                            class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1"
+                            [routerLink]="subItem2?.routerLink"
+                            [routerLinkActive]="'bg-primary text-base-100'">
+                            <i class="{{ subItem2.icon ?? 'fa-solid fa-fan' }} me-2"></i>
+                            {{ subItem2.title }}
+                          </a>
+                        </li>
+                      </ul>
+                    </details>
+                  </ng-template>
+                </li>
+              </ul>
+            </details>
+          </ng-template>
+        </li>
+      </ng-content>
+      <ng-template #list>
+        <li *ngFor="let item of menuItems" >
+          <a *ngIf="item?.children.length === 0 ; else subMenu1"
+             class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1" [routerLink]="item?.routerLink"   [routerLinkActive]="'bg-primary text-base-100'">
+            <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
+          </a>
+          <ng-template #subMenu1>
+            <a  class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1" [routerLink]="item?.routerLink"   [routerLinkActive]="'bg-primary text-base-100'">
+              <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
             </a>
-          </li>
-        </ul>
-      </li>
+          </ng-template>
+        </li>
+      </ng-template>
+
     </ul>
   </div>
 </nav>
+
+

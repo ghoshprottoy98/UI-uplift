@@ -9,6 +9,8 @@ import {AppConfigService} from "./app.config.service";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {NgxSpinnerComponent} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { FormlyModule } from '@ngx-formly/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 export function initApp(configurator: AppConfigService) {
@@ -48,7 +50,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppRoutingModule,
     KeycloakAngularModule,
     LayoutModule,
-    NgxSpinnerComponent
+    NgxSpinnerComponent,
+    FormlyModule.forRoot({ extras: { lazyRender: true }}),
+    ReactiveFormsModule
   ],
   providers: [
     AppConfigService,
@@ -59,12 +63,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
       deps: [AppConfigService],
       multi: true
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
+      {
+        provide: APP_INITIALIZER,
+        useFactory: initializeKeycloak,
+        multi: true,
+        deps: [KeycloakService],
+      },
     provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent],
