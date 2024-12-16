@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'app/admission/setup/admission-process/list', component: LayoutsComponent },
   { path: 'app/admission/setup/institute/university/list', component: TemplatesComponent },
-  { path: 'web-notifications', component: WebNotificationsComponent },
+  { path: 'app/admission/setup/education-board/list', component: WebNotificationsComponent },
   { path: 'sms-email-notification-history/sms', component: SmsHistoryComponent },
   { path: 'sms-email-notification-history/email', component: EmailHistoryComponent },
   { path: '**', redirectTo: '/home' },
