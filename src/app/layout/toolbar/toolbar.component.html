@@ -39,13 +39,15 @@
           alt="BRAC IT Services"
         />
       </div>
+      
       <div class="breadcrumbs text-sm px-1">
         <ul class="flex space-x-1">
           <li *ngFor="let crumb of breadcrumbs; let last = last;" class="text-dark">
             <ng-container *ngIf="!last; else lastCrumb">
               <a [routerLink]="crumb.link" class="text-dark">
                 <i *ngIf="crumb.label === 'Home'" class="fa fa-home text-dark me-1" aria-hidden="true"></i>
-                {{ crumb.label }}</a>
+                {{ crumb.label }}
+              </a>
             </ng-container>
             <ng-template #lastCrumb><a class="text-dark">
               <i *ngIf="crumb.label === 'Home'" class="fa fa-home text-dark me-1" aria-hidden="true"></i>
