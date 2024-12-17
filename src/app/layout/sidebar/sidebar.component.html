@@ -1,6 +1,8 @@
 <nav class="flex flex-col h-full shadow-left border-r" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
-<app-sidebar-logo> </app-sidebar-logo>
-<app-sidebar-menu> </app-sidebar-menu>
+  <div class="sidebar-content flex flex-col h-full overflow-y-auto">
+    <app-sidebar-logo></app-sidebar-logo>
+    <app-sidebar-menu></app-sidebar-menu>
+  </div>
 </nav>
 
 
