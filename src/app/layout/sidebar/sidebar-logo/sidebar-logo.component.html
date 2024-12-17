@@ -1,0 +1,15 @@
+<div class="flex items-center items-start">
+    <div class="flex">
+      <app-sidebar-toggler></app-sidebar-toggler>
+    </div>
+    <div class="flex" *ngIf="!(isCollapsed$ | async)">
+      <a href="/">
+        <img
+          [ngSrc]="'./assets/media/logos/bracit-logo.svg'"
+          [width]="100"
+          [height]="100"
+          alt="BRAC IT Services"
+        />
+      </a>
+    </div>
+  </div>

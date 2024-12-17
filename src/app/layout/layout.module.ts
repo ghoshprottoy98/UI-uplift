@@ -15,6 +15,8 @@ import { EasyGridModule } from "@bracit/angular/easy-grid";
 import { SmsHistoryComponent } from './sms-email-notification-history/sms-history/sms-history.component';
 import { EmailHistoryComponent } from './sms-email-notification-history/email-history/email-history.component';
 import {MatIconModule} from "@angular/material/icon";
+import { SidebarMenuComponent } from './sidebar/sidebar-menu/sidebar-menu.component';
+import { SidebarLogoComponent } from './sidebar/sidebar-logo/sidebar-logo.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {MatIconModule} from "@angular/material/icon";
     ToolbarComponent,
     HomeComponent,
     SmsHistoryComponent,
-    EmailHistoryComponent
+    EmailHistoryComponent,
+    SidebarMenuComponent,
+    SidebarLogoComponent
   ],
   imports: [
     CommonModule,
