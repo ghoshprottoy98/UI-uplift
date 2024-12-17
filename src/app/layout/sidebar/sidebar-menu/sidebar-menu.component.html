@@ -1,4 +1,5 @@
-<div class="flex-grow overflow-y-auto" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
+
+  <div class="flex-grow overflow-y-auto" >
     <div class="flex flex-col gap-4 mt-4 px-3" *ngIf="loaderSubject | async">
       <div *ngFor="let i of Array(15)" class="skeleton h-4 w-full">
       </div>

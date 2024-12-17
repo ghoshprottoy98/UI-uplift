@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import { Observable } from 'rxjs';
+import { LayoutService } from '../layout.service';
 
 
 @Component({
@@ -8,11 +10,25 @@ import {Component} from '@angular/core';
 })
 export class SidebarComponent  {
 
+  isCollapsed$ = new Observable<boolean>();
+  
 
-  constructor() {}
+  constructor( private layoutService: LayoutService ) {}
 
   ngOnInit(): void {
-  
+    this.isCollapsed$ = this.layoutService.isCollapsed$;
+
      }
 
+     onMouseEnter(event: MouseEvent) {
+      if (this.isCollapsed$) {
+        this.layoutService.toggleSidebar();
+      }
+    }
+  
+    onMouseLeave(event: MouseEvent) {
+      if (this.isCollapsed$) {
+        this.layoutService.toggleSidebar();
+      }
+    }
 }

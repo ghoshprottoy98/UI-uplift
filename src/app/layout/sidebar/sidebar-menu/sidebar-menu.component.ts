@@ -165,18 +165,6 @@ export class SidebarMenuComponent implements OnInit {
   //   // this.layoutService.toggleSidebar()
   // }
 
-  onMouseEnter(event: MouseEvent) {
-    // If the sidebar is collapsed, expand it when hovering over the icons
-    if (this.isCollapsed$) {
-      this.layoutService.toggleSidebar();
-    }
-  }
 
-  onMouseLeave(event: MouseEvent) {
-    // If the sidebar is expanded, collapse it when the mouse leaves
-    if (this.isCollapsed$) {
-      this.layoutService.toggleSidebar();
-    }
-  }
 
 }
