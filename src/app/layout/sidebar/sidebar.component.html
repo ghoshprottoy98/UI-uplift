@@ -1,4 +1,6 @@
-<nav class="flex flex-col h-full shadow-left border-r" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
+<nav class="flex flex-col h-full shadow-left border-r"
+[ngClass]="{ 'w-72': !(isCollapsed$ | async), 'w-15': isCollapsed$ | async }"
+ (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
   <div class="sidebar-content flex flex-col h-full overflow-y-auto">
     <app-sidebar-logo></app-sidebar-logo>
     <app-sidebar-menu></app-sidebar-menu>
