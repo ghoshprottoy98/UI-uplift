@@ -20,6 +20,8 @@ import { SidebarLogoComponent } from './sidebar/sidebar-logo/sidebar-logo.compon
 import { ToolbarBreadcrumbsComponent } from './toolbar/toolbar-breadcrumbs/toolbar-breadcrumbs.component';
 import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profile.component';
 import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
+import {FormlyModule} from "@ngx-formly/core";
+import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
     NgOptimizedImage,
     EasyGridModule,
     FuseFullscreenModule,
+    FormlyModule.forRoot(),
+    FormlyTailwindcssModule
   ],
   exports: [
     LayoutComponent

@@ -15,7 +15,7 @@ export class TemplatesComponent {
     {
       key: 'text',
       type: 'input',
-      className:'input input-bordered input-primary w-full max-w-xs',
+      className:'',
       props: {
         label: 'Text',
         placeholder: 'Formly is terrific!',

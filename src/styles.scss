@@ -34,26 +34,27 @@ body {
 .text-hover-primary {
   @apply text-secondary
 }
+//:root{
+//  ::-webkit-scrollbar {
+//    width: 12px !important; /* Width of the scrollbar */
+//  }
+//
+//  ::-webkit-scrollbar-thumb {
+//    background: linear-gradient(135deg, #6c63ff, #bfa5ff) !important;
+//    border-radius: 10px !important; /* Rounded edges */
+//    border: 3px solid #f3f3f3 !important;/* Matches the background */
+//  }
+//
+//  ::-webkit-scrollbar-track {
+//    background: #f3f3f3  !important;/* Track background */
+//    border-radius: 10px !important;/* Rounded edges for the track */
+//    margin: 5px 0 !important;/* Optional spacing between scrollbar and container */
+//  }
 
-/* Scrollbar for modern browsers */
-::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #6c63ff, #bfa5ff); /* Smooth gradient thumb */
-  border-radius: 10px; /* Rounded edges */
-  border: 3px solid #f3f3f3; /* Matches the background */
-}
-
-::-webkit-scrollbar-track {
-  background: #f3f3f3; /* Track background */
-  border-radius: 10px; /* Rounded edges for the track */
-  margin: 5px 0; /* Optional spacing between scrollbar and container */
-}
+//}
 
 
-/* Optional smooth scroll behavior */
+
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
 }

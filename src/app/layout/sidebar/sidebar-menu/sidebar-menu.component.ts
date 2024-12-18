@@ -48,7 +48,7 @@ export class SidebarMenuComponent implements OnInit {
         this.currentUrl = event.urlAfterRedirects
         if (this.menuItems.length){
 
-          this.traversedTitles = []; 
+          this.traversedTitles = [];
           this.findMatchingTitles(this.currentUrl, this.menuItems);
 
           if (this.currentUrl === '/home' || !this.traversedTitles.length) {
@@ -59,7 +59,7 @@ export class SidebarMenuComponent implements OnInit {
 
 
           let currentParentId = this.findParentId(event.urlAfterRedirects, this.menuItems);
-          this.count.set(currentParentId); 
+          this.count.set(currentParentId);
         }
       }
     });
@@ -107,7 +107,10 @@ export class SidebarMenuComponent implements OnInit {
               menuMap[item.parentId]?.children.push(item);
             }
           });
-          this.menuItems = data.filter((item: any) => item.parentId === null)
+          this.menuItems = data
+            .filter((item: any) =>
+              item.parentId === null && (item.routerLink || (item.children && item.children.length > 0))
+            )
             .sort((a: any, b: any) => a.menuOrder - b.menuOrder);
 
           let currentParentId = this.findParentId(this.currentUrl, this.menuItems);
@@ -176,7 +179,7 @@ export class SidebarMenuComponent implements OnInit {
   findMatchingTitles(url: string, menuItems: any[]): boolean {
     for (const item of menuItems) {
       if (url.startsWith(item.routerLink)) {
-        this.traversedTitles.push(item.title); 
+        this.traversedTitles.push(item.title);
 
         if (item.children && item.children.length > 0) {
           const childMatch = this.findMatchingTitles(url, item.children);
@@ -186,10 +189,10 @@ export class SidebarMenuComponent implements OnInit {
         }
 
         if (item.routerLink === url) {
-          return true; 
+          return true;
         }
 
-        this.traversedTitles.pop(); 
+        this.traversedTitles.pop();
       }
     }
     return false;

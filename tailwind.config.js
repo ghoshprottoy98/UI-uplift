@@ -6,6 +6,7 @@ module.exports = {
     },
     plugins: [
         require('daisyui'),
+        require('tailwind-scrollbar'),
         require('@tailwindcss/aspect-ratio')
         , require('@tailwindcss/forms')
         , require('@tailwindcss/line-clamp')
@@ -14,6 +15,9 @@ module.exports = {
     daisyui: {
         themes: [
             {
+                variants: {
+                    scrollbar: ['rounded'], // Enable rounded scrollbar variants
+                },
                 customTheme: {
                     "primary": "#f45c5c",
                     "secondary": "#0c2c54",
@@ -29,20 +33,11 @@ module.exports = {
             },
         ],
     },
+    variants: {
+        scrollbar: ['rounded'], // Enable rounded scrollbar variants
+    },
 };
 
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//     content: [
-//         "./src/**/*.{html,ts}",
-//     ],
-//     theme: {
-//         extend: {},
-//     },
-//     plugins: [
-//         require('daisyui'),
-//     ],
-//
-// }
+
 
 
