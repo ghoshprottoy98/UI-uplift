@@ -19,6 +19,8 @@ import { SidebarMenuComponent } from './sidebar/sidebar-menu/sidebar-menu.compon
 import { SidebarLogoComponent } from './sidebar/sidebar-logo/sidebar-logo.component';
 import { ToolbarBreadcrumbsComponent } from './toolbar/toolbar-breadcrumbs/toolbar-breadcrumbs.component';
 import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profile.component';
+import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
+
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profi
     MatIconModule,
     NgOptimizedImage,
     EasyGridModule,
+    FuseFullscreenModule,
   ],
   exports: [
     LayoutComponent
