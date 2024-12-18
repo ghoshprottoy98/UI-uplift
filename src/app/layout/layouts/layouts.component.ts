@@ -9,13 +9,6 @@ import {ColDef} from 'ag-grid-community';
 export class LayoutsComponent implements OnInit {
 
   @Input() backgroundColor: string = 'transparent';
-
-  dataSource: any = [
-    {assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true},
-    {assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false},
-    {assessmentName: 'History Exam', assessmentType: 'Test', isActive: true}
-  ];
-  loaded = false;
   @Input() pagination: boolean = false;
   dataUrl = '/api/bpa/task/ready'
 

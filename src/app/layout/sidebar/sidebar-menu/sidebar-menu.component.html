@@ -1,5 +1,4 @@
-
-  <div class="flex-grow overflow-y-auto" >
+<div class="flex-grow" >
     <div class="flex flex-col gap-4 mt-4 px-3" *ngIf="loaderSubject | async">
       <div *ngFor="let i of Array(15)" class="skeleton h-4 w-full">
       </div>
@@ -25,7 +24,7 @@
           </a>
 
           <details  *ngIf="!(isCollapsed$ | async)" [open]="this.activeParentId() === item.id">
-            <summary class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1">
+            <summary class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1" [ngClass]="this.activeParentId() === item.id ? 'bg-base-200' : '' ">
               <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
               <span *ngIf="!(isCollapsed$ | async)">
               {{ item.title }}
@@ -44,7 +43,7 @@
                 </a>
                 <ng-template #subMenu2>
                   <details [open]="this.count() === subItem1.id">
-                    <summary class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1">
+                    <summary class="cursor-pointer hover:bg-primary hover:text-base-100 mb-1" [ngClass]="this.count() === subItem1.id ? 'bg-base-200' : '' ">
                       <i class="{{ subItem1.icon ?? 'fa-solid fa-fan' }} me-2"></i>
                       {{ subItem1.title }}
                     </summary>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../layout.service';
 
@@ -11,7 +11,9 @@ import { LayoutService } from '../layout.service';
 export class SidebarComponent  {
 
   isCollapsed$ = new Observable<boolean>();
-  
+  @Output() mouseEnter = new EventEmitter<MouseEvent>();
+  @Output() mouseLeave = new EventEmitter<MouseEvent>();
+
 
   constructor( private layoutService: LayoutService ) {}
 
@@ -20,15 +22,14 @@ export class SidebarComponent  {
 
      }
 
-     onMouseEnter(event: MouseEvent) {
-      if (this.isCollapsed$) {
-        this.layoutService.toggleSidebar();
-      }
-    }
-  
-    onMouseLeave(event: MouseEvent) {
-      if (this.isCollapsed$) {
-        this.layoutService.toggleSidebar();
-      }
-    }
+  onMouseEnter(event: MouseEvent) {
+    // Emit the event to the parent
+    this.mouseEnter.emit(event);
+  }
+
+  onMouseLeave(event: MouseEvent) {
+    // Emit the event to the parent
+    this.mouseLeave.emit(event);
+  }
+
 }
