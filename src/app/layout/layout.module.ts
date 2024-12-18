@@ -17,6 +17,8 @@ import { EmailHistoryComponent } from './sms-email-notification-history/email-hi
 import {MatIconModule} from "@angular/material/icon";
 import { SidebarMenuComponent } from './sidebar/sidebar-menu/sidebar-menu.component';
 import { SidebarLogoComponent } from './sidebar/sidebar-logo/sidebar-logo.component';
+import { ToolbarBreadcrumbsComponent } from './toolbar/toolbar-breadcrumbs/toolbar-breadcrumbs.component';
+import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SidebarLogoComponent } from './sidebar/sidebar-logo/sidebar-logo.compon
     SmsHistoryComponent,
     EmailHistoryComponent,
     SidebarMenuComponent,
-    SidebarLogoComponent
+    SidebarLogoComponent,
+    ToolbarBreadcrumbsComponent,
+    ToolbarProfileComponent
   ],
   imports: [
     CommonModule,
