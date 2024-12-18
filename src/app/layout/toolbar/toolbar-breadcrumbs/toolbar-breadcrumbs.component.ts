@@ -3,7 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import { LayoutService} from '../../layout.service';
-
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 @Component({
   selector: 'app-toolbar-breadcrumbs',
   templateUrl: './toolbar-breadcrumbs.component.html',
@@ -16,42 +16,22 @@ export class ToolbarBreadcrumbsComponent  implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private router: Router
+    private router: Router,
+    private breadcrumbService: BreadcrumbService 
   ) {}
 
   ngOnInit(): void {
     this.isCollapsed$ = this.layoutService.isCollapsed$;
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.generateBreadcrumbs();
+    this.breadcrumbService.traversedTitles$.subscribe((titles) => {
+      if (titles.length > 0) {
+        this.breadcrumbs = titles.map((title, index) => ({
+          label: title,
+          link: index === titles.length - 1 ? this.router.url : ''
+        }));
+      }
     });
 
   }
-
-
-  private generateBreadcrumbs(): void {
-    const urlSegments = this.router.url.split('/').filter(segment => segment);
-
-    this.breadcrumbs = [];
-    let currentUrl = '';
-
-    urlSegments.forEach((segment, index) => {
-      currentUrl += `/${segment}`;
-      const label = this.capitalize(segment.replace('-', ' '));
-      this.breadcrumbs.push({
-        label: label,
-        link: currentUrl
-      });
-    });
-
-    this.breadcrumbs.unshift({ label: 'Home', link: '/' });
-  }
-
-  private capitalize(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
 
 }

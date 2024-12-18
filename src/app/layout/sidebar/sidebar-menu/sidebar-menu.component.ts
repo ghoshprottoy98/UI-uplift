@@ -5,6 +5,7 @@ import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import { MenuService } from '../../../../shared/services/menu-service';
 import {list} from "postcss";
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -27,6 +28,8 @@ export class SidebarMenuComponent implements OnInit {
     })?.id || null;
   });
 
+  traversedTitles: string[] = [];
+
   openMenuIndex: number | null = null;
   protected readonly Array = Array;
   protected readonly list = list;
@@ -35,6 +38,7 @@ export class SidebarMenuComponent implements OnInit {
     private layoutService: LayoutService,
     private service: MenuService,
     private router: Router,
+    private breadcrumbService: BreadcrumbService
   ) {
   }
 
@@ -43,8 +47,15 @@ export class SidebarMenuComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.urlAfterRedirects
         if (this.menuItems.length){
+
+          this.traversedTitles = []; 
+          this.findMatchingTitles(this.currentUrl, this.menuItems);
+
+          this.breadcrumbService.updateTraversedTitles(this.traversedTitles);
+
+
           let currentParentId = this.findParentId(event.urlAfterRedirects, this.menuItems);
-          this.count.set(currentParentId); // Update the current URL on navigation
+          this.count.set(currentParentId); 
         }
       }
     });
@@ -96,6 +107,10 @@ export class SidebarMenuComponent implements OnInit {
             .sort((a: any, b: any) => a.menuOrder - b.menuOrder);
 
           let currentParentId = this.findParentId(this.currentUrl, this.menuItems);
+
+          this.traversedTitles = [];
+          this.findMatchingTitles(this.currentUrl, this.menuItems);
+          this.breadcrumbService.updateTraversedTitles(this.traversedTitles);
 
           this.count.set(currentParentId)
           this.loaderSubject.next(false);
@@ -151,20 +166,27 @@ export class SidebarMenuComponent implements OnInit {
     }
   }
 
-  // onMouseEnter(event: MouseEvent){
-  //   this.layoutService.isCollapsed$.subscribe((item=>{
-  //     if (item){
-  //      // this.layoutService.toggleSidebar()
-  //     }
-  //   }))
+  findMatchingTitles(url: string, menuItems: any[]): boolean {
+    for (const item of menuItems) {
+      if (url.startsWith(item.routerLink)) {
+        this.traversedTitles.push(item.title); 
 
-  //   // this.layoutService.toggleSidebar()
-  // }
+        if (item.children && item.children.length > 0) {
+          const childMatch = this.findMatchingTitles(url, item.children);
+          if (childMatch) {
+            return true;
+          }
+        }
 
-  // onMouseLeave(event: MouseEvent){
-  //   // this.layoutService.toggleSidebar()
-  // }
+        if (item.routerLink === url) {
+          return true; 
+        }
 
+        this.traversedTitles.pop(); 
+      }
+    }
+    return false;
+  }
 
 
 }
