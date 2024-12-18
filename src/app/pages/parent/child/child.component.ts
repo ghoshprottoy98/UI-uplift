@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {CommonModule} from "@angular/common";
+import {FuseFullscreenModule} from "@bracit/angular/fullscreen";
+
 
 
 @Component({
@@ -7,8 +9,9 @@ import {CommonModule} from "@angular/common";
   templateUrl: './child.component.html',
   styleUrls: ['./child.component.scss'],
   standalone: true,
-  imports:[
+  imports: [
     CommonModule,
+    FuseFullscreenModule,
   ]
 })
 export class ChildComponent {
