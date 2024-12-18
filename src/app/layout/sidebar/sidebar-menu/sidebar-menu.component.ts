@@ -51,6 +51,10 @@ export class SidebarMenuComponent implements OnInit {
           this.traversedTitles = []; 
           this.findMatchingTitles(this.currentUrl, this.menuItems);
 
+          if (this.currentUrl === '/home' || !this.traversedTitles.length) {
+            this.traversedTitles = [];
+          }
+
           this.breadcrumbService.updateTraversedTitles(this.traversedTitles);
 
 
@@ -110,6 +114,9 @@ export class SidebarMenuComponent implements OnInit {
 
           this.traversedTitles = [];
           this.findMatchingTitles(this.currentUrl, this.menuItems);
+          if (this.currentUrl === '/home' || !this.traversedTitles.length) {
+            this.traversedTitles = [];
+          }
           this.breadcrumbService.updateTraversedTitles(this.traversedTitles);
 
           this.count.set(currentParentId)
