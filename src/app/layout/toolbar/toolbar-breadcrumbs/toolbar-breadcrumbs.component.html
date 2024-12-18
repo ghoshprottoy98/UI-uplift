@@ -7,9 +7,14 @@
         alt="BRAC IT Services"
       />
     </div>
-  
     <div class="breadcrumbs text-sm px-1">
       <ul class="flex space-x-1">
+        <li *ngIf="breadcrumbs.length === 0 && isHomePage()">
+          <a class="text-dark">
+            <i class="fa fa-home text-dark me-1" aria-hidden="true"></i>
+            Home
+          </a>
+        </li>
         <li *ngFor="let crumb of breadcrumbs; let last = last;" class="text-dark">
           <ng-container *ngIf="!last; else lastCrumb">
             <a (click)="onBreadcrumbClick(crumb.link)" class="text-dark" style="cursor: pointer;">

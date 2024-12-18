@@ -34,6 +34,11 @@ export class ToolbarBreadcrumbsComponent implements OnInit {
     });
   }
 
+  isHomePage(): boolean {
+    return this.router.url.endsWith('/home');
+  }
+
+
   getLinkForBreadcrumb(index: number, titles: string[]): string {
     let link = '/';
     for (let i = 0; i <= index; i++) {
