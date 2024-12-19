@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TitleBarService} from "../components/tittle-bar/title-bar.service";
 
 @Component({
   selector: 'app-web-notifications',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './web-notifications.component.css'
 })
 export class WebNotificationsComponent {
+
+  constructor(private  service: TitleBarService) {
+    this.service.setTitle('Change Component Title');
+  }
 
 }

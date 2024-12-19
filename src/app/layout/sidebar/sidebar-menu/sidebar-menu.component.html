@@ -15,8 +15,9 @@
         </a>
         <ng-template #subMenu1>
           <a *ngIf="(isCollapsed$ | async)"
+             [ngClass]="{'bg-primary text-base-100': this.activeParentId() === item.id}"
              class="cursor-pointer hover:bg-primary hover:text-base-100 focus:bg-primary focus:text-base-100 mb-1"
-             [routerLink]="item?.routerLink" [routerLinkActive]="'bg-primary text-base-100'">
+             [routerLink]="item?.routerLink">
             <i class="{{ item.icon ?? 'fa-solid fa-fan' }} me-2"></i>
             <span *ngIf="!(isCollapsed$ | async)">
           {{ item.title }}

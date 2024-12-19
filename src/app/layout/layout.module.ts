@@ -22,6 +22,7 @@ import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profi
 import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
 import {FormlyModule} from "@ngx-formly/core";
 import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
+import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
     EasyGridModule,
     FuseFullscreenModule,
     FormlyModule.forRoot(),
-    FormlyTailwindcssModule
+    FormlyTailwindcssModule,
+    TittleBarComponent
   ],
   exports: [
     LayoutComponent

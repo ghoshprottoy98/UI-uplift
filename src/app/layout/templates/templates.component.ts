@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import {TitleBarService} from "../components/tittle-bar/title-bar.service";
 
 @Component({
   selector: 'app-templates',
@@ -76,4 +77,10 @@ export class TemplatesComponent {
       },
     },
   ];
+
+  constructor(private  service: TitleBarService) {
+    this.service.setTitle('Some Component Title');
+  }
+
+
 }
