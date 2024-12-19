@@ -23,6 +23,7 @@ import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
 import {FormlyModule} from "@ngx-formly/core";
 import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
 import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
+import { WebNotificationsComponent } from './web-notifications/web-notifications.component';
 import {InlineSVGModule} from 'ng-inline-svg-2';
 
 
@@ -44,7 +45,8 @@ import {InlineSVGModule} from 'ng-inline-svg-2';
     SidebarMenuComponent,
     SidebarLogoComponent,
     ToolbarBreadcrumbsComponent,
-    ToolbarProfileComponent
+    ToolbarProfileComponent,
+    WebNotificationsComponent 
   ],
   imports: [
     CommonModule,

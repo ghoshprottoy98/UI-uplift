@@ -1,0 +1,39 @@
+div.editor-container {
+  margin: -19px -7px -11px -8px;
+}
+
+:host ::ng-deep .editor-container{
+
+  .ck-content {
+    i{
+      font-size: inherit;
+      color: inherit;
+    }
+    a.action-button {
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      padding: 0.75575rem 1.3rem;
+      font-size: 0.925rem;
+      line-height: 1.5;
+      border-radius: 0.35rem;
+      color: #ffffff;
+      background-color: #009EF7;
+      border: 0px;
+      margin-right: 0.75rem !important;
+      font-weight: 600 !important;
+      outline: none !important;
+      vertical-align: middle
+    }
+  }
+  .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+    border: none;
+    box-shadow: none;
+  }
+  .ck.ck-toolbar {
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+}

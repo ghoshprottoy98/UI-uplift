@@ -1,1 +1,31 @@
-<p>web-notifications works!</p>
+<div class="card h-[100%] bg-neutral text-neutral-content w-100">
+    <div class="card-body items-center text-center">
+
+        <div class="card card-custom h-100">
+            <div class="card-body center-one-col-form">
+               
+                <div class="mb-5">
+                    <formly-form [form]="form" [fields]="fields" [options]="options"></formly-form>
+                </div>
+                  <div>
+            
+                <div>
+                    <button  type="submit"
+                            class="btn me-2 btn-primary">
+                      <i class="fa-regular fa-circle-check"></i>
+                        Save
+                    </button>
+                    <button 
+                            class="btn me-2 btn-secondary">
+                      <i class="fa-solid fa-recycle"></i>Reset
+                    </button>
+                    <button 
+                            class="btn btn-active-secondary me-2">
+                      <i class="fa-solid fa-angle-left"></i>Cancel
+                    </button>
+                  </div>
+            </div>
+         </div>
+
+    </div>
+  </div>
