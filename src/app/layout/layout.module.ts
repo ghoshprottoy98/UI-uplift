@@ -57,6 +57,7 @@ import {InlineSVGModule} from 'ng-inline-svg-2';
     FormlyTailwindcssModule,
     TittleBarComponent,
     InlineSVGModule,
+
   ],
   exports: [
     LayoutComponent

@@ -6,8 +6,8 @@
       <app-fullscreen class="d-lg-block"></app-fullscreen>
     </div>
   
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-      <div class="indicator">
+    <div tabindex="0" role="button" class="btn btn-ghost btn-square">
+      <div class="indicator flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 transform scale-150"
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div tabindex="0" class="card card-compact dropdown-content priority bg-base-100 mt-3 w-52 shadow">
+  <div tabindex="0" class="card card-compact dropdown-content priority bg-base-100 mt-3 w-80 shadow">
     <div class="card-body">
       <h3 class="text-black fw-bold px-1 mt-1 mb-1 flex justify-between items-center">
         Notifications
@@ -39,17 +39,20 @@
         <div class="d-flex flex-stack py-4" *ngFor="let alert of notificationList">
           <a href="#" (click)="viewDetails(alert, $event)" class="d-flex align-items-center">
            
-           <div class="flex justify-between items-center"> 
-            <div class="symbol symbol-35px me-4">
+           <div class="flex justify-between items-center space-x-2"> 
+            <div class="symbol symbol-25px ml-2">
               <i *ngIf="alert.seen" class="fa-solid fs-2 fa-envelope-open-text"></i>
               <i *ngIf="!alert.seen" class="fa-solid fs-2 fa-envelope text-danger"></i>
             </div>
-            <div class="mb-0 me-2">
+            <div class="flex flex-col ml-2">
               <a href="#" class="fs-6 text-gray-800 text-hover-primary" [class.fw-bolder]="!alert.seen">
                 {{ alert.title }}
               </a>
               <div class="text-gray-400 fs-7">{{ alert.createdOn | date: 'medium' }}</div>
             </div>
+            <div></div>
+            <div></div>
+
             </div>
 
           </a>
