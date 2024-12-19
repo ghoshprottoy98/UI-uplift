@@ -10,7 +10,7 @@ import { LayoutService } from './layout.service';
 export class LayoutComponent implements  OnInit {
   isCollapsed$ = new Observable<boolean>();
 
-  hoverable: boolean = false;
+  coverage: boolean = false;
 
 
   constructor(private layoutService: LayoutService) {}
@@ -22,7 +22,7 @@ export class LayoutComponent implements  OnInit {
   handleMouseEnter(event: MouseEvent) {
     this.isCollapsed$.subscribe((item)=>{
       if (item){
-        this.hoverable = true
+        this.coverage = true
       }
     })
   }
@@ -30,7 +30,7 @@ export class LayoutComponent implements  OnInit {
   handleMouseLeave(event: MouseEvent) {
     this.isCollapsed$.subscribe((item)=>{
       if (item){
-        this.hoverable = false
+        this.coverage = false
       }
     })
   }

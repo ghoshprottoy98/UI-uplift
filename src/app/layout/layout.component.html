@@ -1,9 +1,10 @@
-<div class="flex h-screen">
+<div class="flex h-screen" [ngClass]="{'relative' : coverage}">
 
   <div
     [ngClass]="{
  'w-72': !(isCollapsed$ | async),
   'w-15': isCollapsed$ | async,
+  'w-72 fixed z-50 shadow-lg top-0 left-0': coverage
    }"
     class="h-screen bg-base-100 text-secondary transition-all duration-300"
   >
@@ -12,7 +13,7 @@
   </div>
 
 
-  <div class="w-full flex flex-col flex-grow bg-gray-50">
+  <div class="w-full flex flex-col flex-grow bg-gray-50" [ngClass]="{'fixed top-0': coverage}">
     <app-navbar></app-navbar>
 
     <div class="p-6 bg-gray-200 h-[calc(100vh-150px)] overflow-y-auto">

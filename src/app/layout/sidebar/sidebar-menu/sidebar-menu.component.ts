@@ -1,4 +1,4 @@
-import {Component, computed, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {Component, computed, Input, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import { LayoutService } from '../../layout.service';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {NavigationEnd, Router} from '@angular/router';
@@ -19,6 +19,8 @@ export class SidebarMenuComponent implements OnInit {
   selectedLabel: string | null = null;
   currentUrl: string = '';
   openSubmenus: { [key: string]: boolean } = {};
+
+  @Input() openOnHover: boolean | undefined
 
   count: WritableSignal<any> = signal(null);
 
