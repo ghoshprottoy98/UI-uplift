@@ -7,7 +7,7 @@
     </div>
   
     <div tabindex="0" role="button" class="btn btn-ghost btn-square">
-      <div class="indicator flex items-center justify-center">
+      <div class="indicator flex items-center justify-center mt-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 transform scale-150"
@@ -34,7 +34,7 @@
         </span>
       </h3>
 
-      <div class="scroll-y my-1 px-1">
+      <div class="scroll-y scrollbar-thumb-gray-200 scrollbar-track-gray-100 scrollbar-thin scrollbar-rounded my-1 px-1">
 
         <div class="d-flex flex-stack py-4" *ngFor="let alert of notificationList">
           <a href="#" (click)="viewDetails(alert, $event)" class="d-flex align-items-center">
@@ -69,7 +69,7 @@
       <div class="py-1 text-center border-top">
         <button class="btn btn-color-gray-600 btn-active-color-primary" (click)="viewAllNotifications()">
           View All
-        </button>
+        </button> 
       </div>
     </div>
   </div>
