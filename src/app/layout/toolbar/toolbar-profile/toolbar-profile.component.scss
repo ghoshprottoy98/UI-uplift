@@ -1,3 +1,43 @@
 .priority{
     z-index: 9999;
    }
+
+
+   .card-body {
+    padding: 10px;
+    max-height: 700px;
+    max-width: 700px;
+    overflow-y: auto;
+  }
+  
+  .symbol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .symbol i {
+    font-size: 1.5rem;
+  }
+  
+  .scroll-y {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .text-muted {
+    color: #6c757d;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-gray-400 {
+    color: #adb5bd;
+  }
+  
+  .text-hover-primary:hover {
+    color: #0066cc;
+  }
+  

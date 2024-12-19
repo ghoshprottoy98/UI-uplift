@@ -22,7 +22,11 @@ import { ToolbarProfileComponent } from './toolbar/toolbar-profile/toolbar-profi
 import { FuseFullscreenModule} from "@bracit/angular/fullscreen";
 import {FormlyModule} from "@ngx-formly/core";
 import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
+<<<<<<< HEAD
 import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
+=======
+import {InlineSVGModule} from 'ng-inline-svg-2';
+>>>>>>> 51f4454 (feat: notification bell improved)
 
 
 @NgModule({
@@ -53,7 +57,12 @@ import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
     FuseFullscreenModule,
     FormlyModule.forRoot(),
     FormlyTailwindcssModule,
+<<<<<<< HEAD
     TittleBarComponent
+=======
+    InlineSVGModule,
+
+>>>>>>> 51f4454 (feat: notification bell improved)
   ],
   exports: [
     LayoutComponent

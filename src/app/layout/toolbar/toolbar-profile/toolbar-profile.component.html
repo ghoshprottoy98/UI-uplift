@@ -2,16 +2,15 @@
 
   <div class="flex items-center">
 
-    <div class="app-navbar-item bg-white" >
+    <div class="app-navbar-item bg-white pr-2" >
       <app-fullscreen class="d-lg-block"></app-fullscreen>
     </div>
-    
-
+  
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
       <div class="indicator">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
+          class="h-5 w-5 transform scale-150"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor">
@@ -19,23 +18,60 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
         </svg>
-        <span class="badge badge-sm indicator-item">8</span>
+        <span class="badge badge-sm indicator-item">{{ newCount }}</span>
       </div>
     </div>
   </div>
 
   <div tabindex="0" class="card card-compact dropdown-content priority bg-base-100 mt-3 w-52 shadow">
     <div class="card-body">
-      <span class="text-lg font-bold">8 Items</span>
-      <span class="text-info">Subtotal: $999</span>
-      <div class="card-actions">
-        <button class="btn btn-primary btn-block">View cart</button>
+      <h3 class="text-black fw-bold px-1 mt-1 mb-1 flex justify-between items-center">
+        Notifications
+        <span *ngIf="newCount > 0" class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">
+          {{ newCount }} new
+        </span>
+      </h3>
+
+      <div class="scroll-y my-1 px-1">
+
+        <div class="d-flex flex-stack py-4" *ngFor="let alert of notificationList">
+          <a href="#" (click)="viewDetails(alert, $event)" class="d-flex align-items-center">
+           
+           <div class="flex justify-between items-center"> 
+            <div class="symbol symbol-35px me-4">
+              <i *ngIf="alert.seen" class="fa-solid fs-2 fa-envelope-open-text"></i>
+              <i *ngIf="!alert.seen" class="fa-solid fs-2 fa-envelope text-danger"></i>
+            </div>
+            <div class="mb-0 me-2">
+              <a href="#" class="fs-6 text-gray-800 text-hover-primary" [class.fw-bolder]="!alert.seen">
+                {{ alert.title }}
+              </a>
+              <div class="text-gray-400 fs-7">{{ alert.createdOn | date: 'medium' }}</div>
+            </div>
+            </div>
+
+          </a>
+        </div>
+      </div>
+      <div *ngIf="noNotification">
+        <div class="d-flex flex-center text-center text-muted min-h-200px">
+          All caught up!
+          <br/>
+          No notifications.
+        </div>
+      </div>
+
+      <div class="py-1 text-center border-top">
+        <button class="btn btn-color-gray-600 btn-active-color-primary" (click)="viewAllNotifications()">
+          View All
+        </button>
       </div>
     </div>
   </div>
 </div>
+  
 
 <div class="dropdown dropdown-end">
   <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
