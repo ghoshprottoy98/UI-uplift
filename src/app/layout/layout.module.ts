@@ -25,7 +25,11 @@ import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
 import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
 import {InlineSVGModule} from 'ng-inline-svg-2';
 import { WebNotificationsComponent } from './web-notifications/web-notifications.component';
+import {FormlyMatDatepickerModule} from "@ngx-formly/material/datepicker";
 import { DatePickerModule } from '../../shared/types/formly/date-picker/date-picker.module';
+import {FormlyMaterialModule} from "@ngx-formly/material";
+import {MatNativeDateModule} from "@angular/material/core";
+
 
 
 
@@ -60,7 +64,10 @@ import { DatePickerModule } from '../../shared/types/formly/date-picker/date-pic
     FormlyTailwindcssModule,
     TittleBarComponent,
     InlineSVGModule,
-    DatePickerModule
+    FormlyMatDatepickerModule,
+    DatePickerModule,
+    FormlyMaterialModule,
+    MatNativeDateModule
 
   ],
   exports: [
