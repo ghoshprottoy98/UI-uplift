@@ -1,0 +1,35 @@
+.field-width {
+  min-width: 100%;
+}
+
+.select{
+  //height: 350px;
+  //overflow: auto;
+}
+
+.list {
+  max-height: 280px;
+  min-height: 280px;
+  overflow: auto;
+}
+
+.list-empty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.mat-mdc-tooltip-trigger.d-flex.justify-content-between {
+  white-space: initial;
+}
+
+.result-show{
+  min-width: 200px;
+}
+
+//.card{
+//  min-width: 300px;
+//}
+

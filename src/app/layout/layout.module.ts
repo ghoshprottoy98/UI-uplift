@@ -24,6 +24,8 @@ import {FormlyModule} from "@ngx-formly/core";
 import {FormlyTailwindcssModule} from "@notiz/formly-tailwindcss";
 import {TittleBarComponent} from "./components/tittle-bar/tittle-bar.component";
 import {InlineSVGModule} from 'ng-inline-svg-2';
+import { WebNotificationsComponent } from './web-notifications/web-notifications.component';
+import { DatePickerModule } from '../../shared/types/formly/date-picker/date-picker.module';
 
 
 
@@ -44,7 +46,8 @@ import {InlineSVGModule} from 'ng-inline-svg-2';
     SidebarMenuComponent,
     SidebarLogoComponent,
     ToolbarBreadcrumbsComponent,
-    ToolbarProfileComponent
+    ToolbarProfileComponent,
+    WebNotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import {InlineSVGModule} from 'ng-inline-svg-2';
     FormlyTailwindcssModule,
     TittleBarComponent,
     InlineSVGModule,
+    DatePickerModule
 
   ],
   exports: [

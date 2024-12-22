@@ -1,0 +1,248 @@
+<!-- <div class="flex row m-0 mb-6">
+  <div class="col-lg-5 col-md-12 col-sm-12 select card border border-dark-subtle border-1 overflow-auto">
+    <div class="pt-5 d-flex justify-content-between px-1">
+      <div>
+        <label class="">
+        <span class="form-check-label fw-semibold">
+          <span>
+            {{labelLeft}}
+          </span>
+</span>
+        </label>
+      </div>
+      <div>
+           <span class="form-check-label text-nowrap">
+      {{'( ' + 'Showing ' + Math.abs(rightSearchLength - leftSearchLength) + ' of ' + (rightLength - leftLength) + ' )'}}
+
+          </span>
+        <button (click)="shiftAllFromRightToLeft()" [disabled]="props.disable" [matTooltip]="'[+] Add all'"
+                class="border-0 bg-transparent text-success me-4 bi bi-clipboard-plus-fill cursor-pointer"></button>
+      </div>
+
+    </div>
+    <div class="separator my-1"></div>
+    <div>
+      <div class="position-relative">
+        <i class="ki-duotone ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"><span
+          class="path1"></span><span class="path2"></span></i> <input (input)="rightSearch()"
+                                                                      [(ngModel)]="rightSearchTerm"
+                                                                      class="form-control p-1 form-control-solid ps-10"
+                                                                      name="search" placeholder="Search" type="text"
+                                                                      value="">
+      </div>
+    </div>
+    <div class="separator my-1"></div>
+    <div [ngClass]="{'d-flex align-items-center justify-content-center': loader, 'list-empty': rightData.length <= 0}"
+         class="list">
+      <mat-action-list #shoes *ngIf="(props.dataList | async) && !loader && !props.grouped;" class="overflow-auto">
+        <ng-container *ngFor="let item of rightData">
+          <button (click)="add(item.id)" [disabled]="props.disable" [hidden]="item.disable" class="h-auto text-start btn border-bottom"
+                  mat-list-item>
+            <div [matTooltip]="item.label" class="d-flex justify-content-between">
+            <span class="labels">
+        {{ props.textWrap ? (item.label.length > 25 ? (item.label | slice:0:25) + '...' : item.label) : item.label }}
+            </span>
+              <span>
+        <i class="text-success bi bi-plus-circle-fill"></i>
+            </span>
+
+            </div>
+          </button>
+        </ng-container>
+      </mat-action-list>
+
+
+      <mat-action-list #shoes *ngIf="(props.dataList | async) && !loader && props.grouped;">
+        <ng-container *ngFor="let item of rightData">
+          <button (click)="groupAdd(item.id)" [disabled]="item.disabled"
+                  [hidden]="!hasVisibleItems(item.data)" class="h-auto text-start btn btn-secondary border-bottom" mat-list-item>
+            <div [matTooltip]="item.key" class="d-flex">
+            <span class="labels">
+        {{ props.textWrap ? (item.key.length > 25 ? (item.key | slice:0:25) + '...' : item.key) : item.key }}
+            </span>
+              <span class="ms-2">
+        <i [ngClass]="{'text-success': item.disabled}" class="text-white bi bi-plus-circle-fill"></i>
+            </span>
+
+            </div>
+          </button>
+          <ng-container *ngFor="let data of item.data">
+            <button (click)="add(data.value, item.id)" [disabled]="data.disabled" [hidden]="!data.visible" class="h-auto ms-2 text-start btn border-bottom"
+                    mat-list-item>
+              <div [matTooltip]="data.label" class="d-flex justify-content-between">
+            <span class="labels">
+        {{ props.textWrap ? (data.label.length > 25 ? (data.label | slice:0:25) + '...' : data.label) : data.label }}
+            </span>
+                <span>
+        <i class="text-success bi bi-plus-circle-fill"></i>
+            </span>
+
+              </div>
+            </button>
+          </ng-container>
+        </ng-container>
+      </mat-action-list>
+
+
+      <ng-container *ngIf="loader">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="rightData.length <= 0">
+        <div class="d-flex flex-column">
+          <svg height="41" viewBox="0 0 64 41" width="64" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd" transform="translate(0 1)">
+              <ellipse cx="32" cy="33" fill="#f5f5f5" rx="32" ry="7"></ellipse>
+              <g fill-rule="nonzero" stroke="#d9d9d9">
+                <path
+                  d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"></path>
+                <path
+                  d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                  fill="#fafafa"></path>
+              </g>
+            </g>
+          </svg>
+          <span class="text-center form-check-label">No Data</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-12 col-sm-12 d-flex align-items-center justify-content-center mx-md-0 my-sm-5">
+    <a class="btn explore-btn-secondary border border-light-subtle  active  btn-sm">
+      <i class="ms-1 fa-solid fa-left-right d-lg-block  d-sm-none"></i>
+      <i class="fa-solid fa-up-down d-md-block d-lg-none d-sm-block"></i></a>
+  </div>
+  <div [ngClass]="{
+       'border-dark-subtle': !formControl.invalid || !(formControl.touched || formControl.dirty),
+       'border-danger': formControl.invalid && (formControl.touched || formControl.dirty)
+     }"
+       class="col-lg-5 col-md-12 col-sm-12 card border border-1 overflow-auto">
+
+    <div class="pt-5 d-flex justify-content-between px-1">
+      <div>
+        <label class="">
+        <span class="form-check-label  fw-semibold">
+           <span [ngClass]="{
+       'text-danger ki-text-bold': formControl.invalid && (formControl.touched || formControl.dirty)
+     }"
+           >
+             {{labelRight}}<span *ngIf="isRequired"
+                                 [ngClass]="{
+       'text-danger ki-text-bold': formControl.invalid && (formControl.touched || formControl.dirty)
+     }">&nbsp;*</span>
+          </span>
+</span>
+        </label>
+      </div>
+      <div class="">
+         <span class="form-check-label text-nowrap">
+     {{'( ' + 'Showing ' + (leftSearchLength) + ' of ' + (leftLength) + ' )'}}
+
+          </span>
+        <i (click)="shiftAllFromLeftToRight()" [matTooltip]="'[-] Remove all'"
+           class="text-danger me-4 bi bi-clipboard-minus-fill cursor-pointer"></i>
+      </div>
+
+    </div>
+    <div class="separator my-1"></div>
+    <div>
+      <div class="position-relative">
+        <i class="ki-duotone ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"><span
+          class="path1"></span><span class="path2"></span></i>
+        <input (input)="leftSearch()"
+               [(ngModel)]="leftSearchTerm"
+               class="form-control p-1 form-control-solid ps-10"
+               name="search"
+               placeholder="Search" type="text" value="">
+      </div>
+    </div>
+    <div class="separator my-1"></div>
+
+    <div [ngClass]="{'list-empty': leftData.length <= 0}" class="list">
+      <mat-form-field *ngIf="!props.grouped" hidden>
+        <mat-select [formControl]="formControl" [formlyAttributes]="field" [required]="props.required || false"
+                    multiple>
+          <mat-option
+            *ngFor="let item of props.dataList | async" [value]="item.id">
+            {{item[props.labelProp]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input *ngIf="props.grouped" [formControl]="formControl" hidden/>
+
+
+      <mat-action-list #left *ngIf="!loader && !props.grouped" class="overflow-auto">
+        <ng-container *ngFor="let item of leftData">
+          <button (click)="remove(item.id)" class="h-auto text-start btn d-flex w-10 border-bottom" mat-list-item>
+            <div [matTooltip]="item.label" class="d-flex justify-content-between">
+            <span class="labels">
+             {{ props.textWrap ? (item.label.length > 25 ? (item.label | slice:0:25) + '...' : item.label) : item.label }}
+            </span>
+              <span>
+          <i class="text-danger bi  bi-dash-circle-fill"></i>
+            </span>
+
+            </div>
+          </button>
+        </ng-container>
+      </mat-action-list>
+
+
+      <mat-action-list #shoes *ngIf="(props.dataList | async) && !loader && props.grouped;">
+        <ng-container *ngFor="let item of rightData">
+          <button (click)="groupRemove(item.id)" [hidden]="!hasDisabledItems(item.data)"
+                  class="h-auto text-start btn btn-secondary border-bottom" mat-list-item>
+            <div [matTooltip]="item.key" class="d-flex">
+            <span class="labels">
+        {{ props.textWrap ? (item.key.length > 25 ? (item.key | slice:0:25) + '...' : item.key) : item.key }}
+            </span>
+              <span class="ms-2">
+        <i [ngClass]="{'text-danger': item.disabled}" class="text-light bi bi-dash-circle-fill"></i>
+            </span>
+
+            </div>
+          </button>
+          <ng-container *ngFor="let data of item.data">
+            <button (click)="remove(data.value, item.id)" [hidden]="!data.disabled" class="h-auto ms-2 text-start btn border-bottom"
+                    mat-list-item>
+              <div [matTooltip]="data.label" class="d-flex justify-content-between">
+            <span class="labels">
+        {{ props.textWrap ? (data.label.length > 25 ? (data.label | slice:0:25) + '...' : data.label) : data.label }}
+            </span>
+                <span>
+         <i class="text-danger bi  bi-dash-circle-fill"></i>
+            </span>
+
+              </div>
+            </button>
+          </ng-container>
+        </ng-container>
+      </mat-action-list>
+
+
+      <ng-container *ngIf="leftData.length <= 0">
+        <div class="d-flex flex-column">
+          <svg height="41" viewBox="0 0 64 41" width="64" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd" transform="translate(0 1)">
+              <ellipse cx="32" cy="33" fill="#f5f5f5" rx="32" ry="7"></ellipse>
+              <g fill-rule="nonzero" stroke="#d9d9d9">
+                <path
+                  d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"></path>
+                <path
+                  d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                  fill="#fafafa"></path>
+              </g>
+            </g>
+          </svg>
+          <span class="text-center form-check-label">No Data</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <mat-error *ngIf="formControl.invalid && (formControl.touched || formControl.dirty)" class="text-end">
+    {{props.validationMessage ? props.validationMessage : 'This field is required'}}
+  </mat-error>
+</div> -->

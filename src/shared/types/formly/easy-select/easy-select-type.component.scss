@@ -1,0 +1,50 @@
+::ng-deep .ng-select {
+  &.ng-select-opened, &ng-select-focused {
+    .ng-select-container {
+      .ng-value-container {
+        div.ng-placeholder {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+  &.ng-select-single .ng-select-container {
+    &.ng-has-value{
+      .ng-value-container {
+        div.ng-placeholder {
+          padding-top: 0;
+        }
+      }
+    }
+    .ng-spinner-loader {
+      //top: 22px !important;
+    }
+
+    .ng-value-container {
+      .ng-placeholder{
+        padding-top: 5px;
+      }
+      .ng-value {
+        margin-top: 10px;
+
+        &:hover {
+          cursor: text;
+        }
+      }
+
+      .ng-input {
+        left: 10px !important;
+        top: 25px;
+        width: 85% !important;
+
+        &:hover {
+          cursor: text;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .ng-select{
+  padding-bottom: 0;
+}
