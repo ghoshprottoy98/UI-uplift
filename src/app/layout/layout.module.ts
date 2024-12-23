@@ -29,6 +29,7 @@ import {FormlyMatDatepickerModule} from "@ngx-formly/material/datepicker";
 import { DatePickerModule } from '../../shared/types/formly/date-picker/date-picker.module';
 import {FormlyMaterialModule} from "@ngx-formly/material";
 import {MatNativeDateModule} from "@angular/material/core";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -67,7 +68,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     FormlyMatDatepickerModule,
     DatePickerModule,
     FormlyMaterialModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule
 
   ],
   exports: [

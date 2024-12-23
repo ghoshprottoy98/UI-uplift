@@ -15,13 +15,14 @@ export class WebNotificationsComponent {
   options: FormlyFormOptions = {};
   fields: FormlyFieldConfig[] = [
     {
-      key: 'text',
+      className: 'col-12',
+      key: 'title',
       type: 'input',
-      className:'',
       props: {
-        label: 'Text',
-        placeholder: 'Formly is terrific!',
+        label: 'Widget title',
+        placeholder: 'Enter Widget Title',
         required: true,
+        maxLength: 30
       },
     },
     {
@@ -91,7 +92,6 @@ export class WebNotificationsComponent {
             minDate: new Date(),
           }
         },
-
       ]
     },
   ];
