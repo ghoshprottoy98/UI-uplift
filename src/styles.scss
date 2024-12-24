@@ -68,10 +68,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__notch {
     border-width: var(--mdc-outlined-text-field-outline-width);
-    border-top-width: 1px !important ;
+    border-top-width: 1px ;
     border-right-width: 0 !important;
-    border-bottom-width: 1px !important;
-    border-left-width: 1px !important; 
+    border-bottom-width: 1px ;
+    border-left-width: 1px ; 
 }
 
 
