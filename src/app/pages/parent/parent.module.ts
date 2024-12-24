@@ -4,6 +4,9 @@ import {ParentComponent} from './parent.component';
 import {RouterModule} from '@angular/router';
 import {CoreModule} from "@bracit/angular/core";
 import {ChildComponent} from "./child/child.component";
+import {FormlyModule} from "@ngx-formly/core";
+import {FormlyMaterialModule} from "@ngx-formly/material";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import {ChildComponent} from "./child/child.component";
       },
     ]),
     CoreModule,
+    ReactiveFormsModule,
+    FormlyModule,
+    FormlyMaterialModule,
   ]
 })
 export class ParentModule {

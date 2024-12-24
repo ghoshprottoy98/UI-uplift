@@ -11,6 +11,8 @@ import {NgxSpinnerComponent} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FormlyModule } from '@ngx-formly/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export function initApp(configurator: AppConfigService) {
@@ -51,8 +53,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
     KeycloakAngularModule,
     LayoutModule,
     NgxSpinnerComponent,
-    FormlyModule.forRoot({ extras: { lazyRender: true }}),
-    ReactiveFormsModule
+    // FormlyModule.forRoot({ extras: { lazyRender: true }}),
+    ReactiveFormsModule,
+    // FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      validationMessages: [{ name: 'required', message: 'This field is required' }],
+      // types: [{ name: 'custom', component: CustomFieldType, wrappers: ['form-field'] }],
+    }),
+    FormlyMaterialModule
   ],
   providers: [
     AppConfigService,
@@ -69,7 +77,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         multi: true,
         deps: [KeycloakService],
       },
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

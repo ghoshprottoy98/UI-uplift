@@ -1,0 +1,69 @@
+//@use '@angular/material' as mat;
+//
+//html {
+//  color-scheme: light dark;
+//  //@include mat.theme((
+//  //  color: mat.$violet-palette,
+//  //  typography: Roboto,
+//  //  density: 0
+//  //));
+//}
+@use '@angular/material' as mat;
+
+$violet-palette: mat.define-palette((
+  50: #f3e5f5,
+  100: #e1bee7,
+  200: #ce93d8,
+  300: #ba68c8,
+  400: #ab47bc,
+  500: #9c27b0,
+  600: #8e24aa,
+  700: #7b1fa2,
+  800: #6a1b9a,
+  900: #4a148c,
+  A100: #ea80fc,
+  A200: #e040fb,
+  A400: #d500f9,
+  A700: #aa00ff,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: black,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+));
+
+
+$mat-form-field-appearance: outline;
+
+
+
+
+
+
+// Define a palette
+//$primary-palette: mat.define-palette(mat.$indigo-palette);
+$primary-palette: mat.define-palette($violet-palette);
+$accent-palette: mat.define-palette(mat.$pink-palette);
+
+// Define a theme
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+  ),
+  typography: mat.define-typography-config(),
+));
+
+// Apply the theme to all Material components
+@include mat.all-component-themes($my-theme);
