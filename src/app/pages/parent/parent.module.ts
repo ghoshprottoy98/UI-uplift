@@ -7,6 +7,9 @@ import {ChildComponent} from "./child/child.component";
 import {FormlyModule} from "@ngx-formly/core";
 import {FormlyMaterialModule} from "@ngx-formly/material";
 import {ReactiveFormsModule} from "@angular/forms";
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -14,6 +17,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     RouterModule.forChild([
       {
         path: '',
@@ -23,12 +27,16 @@ import {ReactiveFormsModule} from "@angular/forms";
         path: 'child',
         component: ChildComponent,
       },
+      
     ]),
     CoreModule,
     ReactiveFormsModule,
     FormlyModule,
     FormlyMaterialModule,
-  ]
+    MatFormFieldModule,
+    MatInputModule
+  ],
+
 })
 export class ParentModule {
 }

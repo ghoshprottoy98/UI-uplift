@@ -1,2 +1,22 @@
-I am the Parent
-<formly-form [form]="form" [fields]="fields" [options]="options" [model]=""></formly-form>
+
+
+<div class="card h-[100%] bg-neutral text-neutral-content w-100">
+    <div class="card-body items-center text-center">
+      Formly Form 
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <formly-form
+          [form]="form"
+          [model]="model"
+          [fields]="fields">
+        </formly-form>
+        <button type="submit" color="primary" mat-raised-button>
+          Submit
+        </button>
+    
+        <button type="reset" color="secondary" mat-raised-button>
+          Reset
+        </button>
+      </form>
+    </div>
+  </div>
+  

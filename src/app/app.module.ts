@@ -13,6 +13,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from "@angular/material/form-field";
 
 
 export function initApp(configurator: AppConfigService) {
@@ -41,6 +42,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
       }
     });
 }
+
+
+const appearance: MatFormFieldDefaultOptions = {
+  appearance: 'outline'
+};
 
 @NgModule({
   declarations: [
@@ -76,6 +82,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
         useFactory: initializeKeycloak,
         multi: true,
         deps: [KeycloakService],
+      },
+      {
+        provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+        useValue: appearance
       },
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimationsAsync()

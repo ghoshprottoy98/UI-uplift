@@ -1,49 +1,73 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig, FormlyFormOptions} from "@ngx-formly/core";
-
-
+import {FormlyFieldConfig } from "@ngx-formly/core";
 
 @Component({
     selector: 'app-version',
     styleUrls: ['./parent.component.scss'],
     templateUrl: './parent.component.html'
 })
-export class ParentComponent implements OnInit{
+export class ParentComponent {
+ 
   form = new FormGroup({});
-  options: FormlyFormOptions = {};
-  // @ts-ignore
-  fields: FormlyFieldConfig[] =  [
+  model = {};
+  fields: FormlyFieldConfig[] = [
     {
-      key: 'text',
+      key: 'input',
       type: 'input',
-      className: '',
       props: {
-        label: 'Text',
-        placeholder: 'Formly is terrific!',
+        label: 'Input',
+        placeholder: 'Input placeholder',
         required: true,
       },
     },
     {
-      key: 'nested.story',
+      key: 'textarea',
       type: 'textarea',
       props: {
-        label: 'Some sweet story',
-        placeholder: 'It allows you to build and maintain your forms with the ease of JavaScript :-)',
-        description: '',
+        label: 'Textarea',
+        placeholder: 'Textarea placeholder',
+        required: true,
       },
     },
-    ]
+    {
+      key: 'checkbox',
+      type: 'checkbox',
+      props: {
+        label: 'Checkbox',
+      },
+    },
+    {
+      key: 'select',
+      type: 'select',
+      props: {
+        label: 'Select',
+        placeholder: 'Select placeholder',
+        required: true,
+        options: [
+          { label: 'Option 1', value: '1' },
+          { label: 'Option 2', value: '2' },
+          { label: 'Option 3', value: '3' },
+        ],
+      },
+    },
+    {
+      key: 'radio',
+      type: 'radio',
+      props: {
+        label: 'Radio',
+        required: true,
+        options: [
+          { label: 'Option 1', value: '1' },
+          { label: 'Option 2', value: '2' },
+        ],
+      },
+    },
+  ];
 
-
-
-    constructor() {
-
+  onSubmit() {
+    if (this.form.valid) {
+      alert(JSON.stringify(this.model, null, 2));
     }
-
-  ngOnInit(): void {
-
   }
-
-
 }
