@@ -75,3 +75,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
+#formly_5_textarea_textarea_1,
+#formly_5_textarea_textarea_1:focus,
+input[id^="formly_5"],
+textarea[id^="formly_5"] {
+  outline: none;
+  box-shadow: none; /* Removes additional focus styling, if any */
+}
+
+#formly_5_input_input_0,
+#formly_5_input_input_0:focus,
+input[id^="formly_5"],
+textarea[id^="formly_5"] {
+  outline: none;
+  box-shadow: none; /* Removes additional focus styling, if any */
+}
+
+
+input[id^="formly_5"]:focus,
+textarea[id^="formly_5"]:focus {
+  border-color: inherit; /* Keeps the border styling consistent */
+}
